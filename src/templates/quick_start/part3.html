@@ -4,10 +4,12 @@
 <head>
     <!--<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/socket.io/client-dist/socket.io.min.js" defer></script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/socket.io/client-dist/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/part3.js') }}"></script>
+    <!--<script src="{{ url_for('static', filename='js/script.js') }}"></script>-->
 
-    <title>Test</title>
+    <title>Part3</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script type="text/javascript">
 
@@ -19,21 +21,43 @@
 
 <body>
     <h1>Welcome to the Part 3</h1>
-    <p>This is the main page of the web application.</p>
 
-    <button id="btnOne">Click ME!</button>
-    <button id="btnTwo">Time in JS</button>
+    <p>
+        This is Part 3 of tutorial from
+        <a
+            href="https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-3-adding-memory-to-the-chatbot">
+            https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-3-adding-memory-to-the-chatbot
+        </a>
+    </p>
 
-    <ul id="currentTime"></ul>
+    <p>Adding Memory to the Chatbot</p>
 
+
+    <img src="{{ url_for('static', filename='images/graph_part3.jpeg') }}" />
+
+
+    <div class="form1">
+        <input type="text" id="message-input" placeholder="ask me something, I am soo smart">
+        <button id="my-button">Click me!</button>
+    </div>
+
+    <ul id="messageList"></ul>
+
+    <div id="text-area"></div>
+
+
+    <div id="loading-spinner" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
 
 
 
 
     <script>
         // Call the function every second to update the time
-        setInterval(displayCurrentTime, 1000);
-
+        //setInterval(displayCurrentTime, 1000);
     </script>
 
 

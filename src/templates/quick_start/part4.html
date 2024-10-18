@@ -4,10 +4,12 @@
 <head>
     <!--<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/socket.io/client-dist/socket.io.min.js" defer></script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/socket.io/client-dist/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/part4.js') }}"></script>
+    <!--<script src="{{ url_for('static', filename='js/script.js') }}"></script>-->
 
-    <title>Test</title>
+    <title>Part3</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script type="text/javascript">
 
@@ -19,23 +21,38 @@
 
 <body>
     <h1>Welcome to the Part 4</h1>
-    <p>This is the main page of the web application.</p>
 
-    <button id="btnOne">Click ME!</button>
-    <button id="btnTwo">Time in JS</button>
+    <p>
+        This is Part 4 of tutorial from
+        <a href="https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-4-human-in-the-loop">
+            https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-4-human-in-the-loop
+        </a>
+    </p>
 
-    <ul id="currentTime"></ul>
+    <p>Human in the loop</p>
 
 
+    <img src="{{ url_for('static', filename='images/graph_part4.jpeg') }}" />
+
+    <p>user_input = "I'm learning speaking German. Could you do some research on it for me?"</p>
+
+    <div class="form1">
+        <input type="text" id="message-input" placeholder="ask me something, I am soo smart">
+        <button id="my-button">Click me!</button>
+    </div>
+
+    <ul id="messageList"></ul>
+
+    <div id="text-area"></div>
+
+    <button id="btnProceed" onclick="{{ myFunction }}">Proceed</button>
 
 
-
-    <script>
-        // Call the function every second to update the time
-        setInterval(displayCurrentTime, 1000);
-
-    </script>
-
+    <div id="loading-spinner" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
 
 </body>
 

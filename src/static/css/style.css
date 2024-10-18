@@ -154,6 +154,6 @@ p {
 
 .form1 {
     width: calc(100% - 20%);
-    margin: 0% 10%;
+    margin: 0 auto;
     box-sizing: border-box;
 }
