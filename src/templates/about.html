@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/socket.io/client-dist/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js" defer></script>
+    <script src="{{ url_for('static', filename='js/about.js') }}"></script>
+
+    <title>About</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript">
+
+
+
+
+    </script>
+</head>
+
+<body>
+    <h1>Welcome to the About Page</h1>
+    <p>This is the about page of the web application.</p>
+
+    <div>
+        <input type="text" id="message-input" placeholder="message for us">
+        <button id="my-button">Click me!</button>
+    </div>
+
+    <div id="text-area"></div>
+
+
+
+    <script>
+        // Call the function every second to update the time
+        //setInterval(displayCurrentTime, 1000);
+
+    </script>
+
+
+</body>

@@ -1,0 +1,10 @@
+flask
+icecream
+flask-socketio
+langgraph
+langchain_groq
+python-dotenv
+langchain_community
+icecream
+langchain_openai
+langchain_chroma

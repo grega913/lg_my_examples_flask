@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/socket.io/client-dist/socket.io.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js" defer></script>
+    <script src="{{ url_for('static', filename='js/part1.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <title>Part1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript">
+
+
+
+
+    </script>
+</head>
+
+<body>
+    <h1>Welcome to the Part 1</h1>
+
+    <p>
+        This is Part 1 of tutorial from
+        <a href="https://langchain-ai.github.io/langgraph/tutorials/introduction/">
+            https://langchain-ai.github.io/langgraph/tutorials/introduction/
+        </a>
+    </p>
+
+    <p>The simplest possible example of Graph</p>
+    <p>Be careful how to display data in html/js when the funcion is streaming from graph!!!</p>
+
+    <img src="{{ url_for('static', filename='images/graph.jpeg') }}" />
+
+    <!--
+    <button id="btnOne">Click ME!</button>
+    <button id="btnTwo">Time in JS</button>
+
+    <ul id="currentTime"></ul>
+    -->
+    <div class="form1">
+        <input type="text" id="message-input" placeholder="ask me something, I am soo smart">
+        <button id="my-button">Click me!</button>
+    </div>
+    
+    <div id="text-area"></div>
+
+
+
+
+
+    <script>
+        // Call the function every second to update the time
+        //setInterval(displayCurrentTime, 1000);
+
+    </script>
+
+
+</body>
+
+</html>
