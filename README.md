@@ -18,14 +18,14 @@ def index():
 
 ## Some issues when importing functions
 
-# here we find the directory where we have helperz_tutorials.py
+- here we find the directory where we have helperz_tutorials.py
 
 'parent_dir_of_helperz_tutorials = os.path.dirname(os.path.dirname(os.path.abspath(**file**)))'
 
-# we append this directory to the sys path
+- we append this directory to the sys path
 
 'sys.path.append(parent_dir_of_helperz_tutorials)'
 
-# now we can import function from this file/module
+- now we can import function from this file/module
 
 'from helperz_tutorials import stream_graph_updates'

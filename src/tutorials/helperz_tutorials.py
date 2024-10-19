@@ -8,13 +8,14 @@ def stream_graph_updates(graph, user_input: str):
 
 
 
-def proceedWithNone():
-    ic("proceedWithNone")
 
-'''
+
+
 def proceedWithNone(graph, config):
-    events = graph.stream(None, config, stream_mode="values")
-    for event in events:
-        if "messages" in event:
-            event["messages"][-1].pretty_print()
-'''
+    ic("def proceedWithNone")
+    if graph:
+
+        events = graph.stream(None, config, stream_mode="values")
+        for event in events:
+            if "messages" in event:
+                event["messages"][-1].pretty_print()

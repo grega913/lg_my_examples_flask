@@ -4,10 +4,12 @@
 <head>
     <!--<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/socket.io/client-dist/socket.io.min.js" defer></script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/socket.io/client-dist/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/part5.js') }}"></script>
+    <!--<script src="{{ url_for('static', filename='js/script.js') }}"></script>-->
 
-    <title>Test</title>
+    <title>Part5</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script type="text/javascript">
 
@@ -19,24 +21,58 @@
 
 <body>
     <h1>Welcome to the Part 5</h1>
-    <p>This is the main page of the web application.</p>
 
-    <button id="btnOne">Click ME!</button>
-    <button id="btnTwo">Time in JS</button>
+    <p>
+        This is Part 5 of tutorial from
+        <a href="https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-5-manually-updating-the-state">
+            https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-5-manually-updating-the-state
+        </a>
+    </p>
 
-    <ul id="currentTime"></ul>
+    <p>Manually updating the state</p>
+
+
+    <img src="{{ url_for('static', filename='images/graph_part5.jpeg') }}" />
 
 
 
+
+    <h5>Initial question: I'm learning LangGraph. Could you do some research on it for me?</h5>
+    <div class="form">
+        <input type="text" id="message-input" placeholder="ask me something, I am soo smart">
+        <button id="my-button">Click me!</button>
+    </div>
+
+
+
+    <h5>Answer(Human in the loop): LangGraph is a library for building stateful, multi-actor applications with LLMs.</h5>
+    <div class="form">
+        <input type="text" id="message-input2" placeholder="ask me something, I am soo smart">
+        <button id="btn1">Button 1</button>
+        <button id="btn2">Button 2</button>
+        <button id="btn3">Button 3</button>
+    </div>
+
+
+
+    <ul id="messageList"></ul>
+    <div id="text-area"></div>
+
+
+
+
+    <div id="loading-spinner" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
 
 
     <script>
-        // Call the function every second to update the time
-        setInterval(displayCurrentTime, 1000);
-
+      btnsForm2()
     </script>
-
-
 </body>
+
+
 
 </html>

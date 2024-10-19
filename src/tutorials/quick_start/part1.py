@@ -32,6 +32,7 @@ def part1_compile_graph():
 
     return graph
 
+
 def part1_stream_graph(graph, user_input: str):
 
     ic(f"{user_input} in def part1_stream_graph")
@@ -43,6 +44,7 @@ def part1_stream_graph(graph, user_input: str):
             ic(content)
             
             return content
+
 
 
 if __name__ == "__main__":

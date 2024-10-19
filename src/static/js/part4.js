@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     const btnProceed = document.getElementById("btnProceed")
     btnProceed.style.display = "none"
+   
 
 
     function callApiDatapoint4() {
@@ -36,9 +37,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     console.log("tools indeed")
                     btnProceed.style.display = "block"
                 }
-
-
-                
+               
 
             })
             .catch(error => {
@@ -61,6 +60,9 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
 
+
+
+
     socket.on("graph_part4", data => {
         console.log(data)
         const elMessage = document.createElement("li")
@@ -73,3 +75,19 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 });
+
+
+
+
+function btnProceed() {
+    console.log("btnTest")
+    // Get the button element
+    const btnOne = document.getElementById('btnProceed');
+
+    // Add an event listener to the button
+    btnOne.addEventListener('click', function() {
+    // Call the function to log a message to the console
+        console.log('Proceed Btn clicked!');
+        socket.emit("part4_proceed", true)
+    });
+}

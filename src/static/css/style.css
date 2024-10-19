@@ -152,8 +152,13 @@ p {
 }
 
 
-.form1 {
-    width: calc(100% - 20%);
-    margin: 0 auto;
-    box-sizing: border-box;
+
+
+.form {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.form2 button {
+    margin: 0 5px;
 }

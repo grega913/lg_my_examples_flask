@@ -1,15 +1,18 @@
-from flask import Flask, redirect, url_for, request, render_template, jsonify
+from flask import Flask, session, url_for, request, render_template, jsonify
 from flask_socketio import SocketIO
 from icecream import ic
 import time
 import sys
 import os
 
+from langchain_core.messages import AIMessage, ToolMessage
+
 from tutorials.helperz_tutorials import stream_graph_updates, proceedWithNone
 from tutorials.quick_start.part1 import part1_compile_graph, part1_stream_graph
 from tutorials.quick_start.part2 import part2_compile_graph
 from tutorials.quick_start.part3 import part3_compile_graph
 from tutorials.quick_start.part4 import part4_compile_graph
+from tutorials.quick_start.part5 import GraphPart5
 
 from playground.playground import square_numbers
 
@@ -18,10 +21,10 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 
+graph_part4 = part4_compile_graph()
 
-
-def myFunction():
-    ic("myFunction")
+# graph as Class
+graphPart5 = GraphPart5()
 
 
 
@@ -47,7 +50,7 @@ def quick_start(path):
     elif path == "part3":
         return render_template('quick_start/part3.html')
     elif path == "part4":
-        return render_template('quick_start/part4.html', myFunction = 'myFunction')
+        return render_template('quick_start/part4.html')
     elif path == "part5":
         return render_template('quick_start/part5.html')
     elif path == "part6":
@@ -125,7 +128,6 @@ def api_part3():
 
     return "Done"
 
-
 @app.route('/api/quick_start/part4', methods= ['POST'])
 def api_part4():
     ic("api_part4")
@@ -135,7 +137,7 @@ def api_part4():
     ic(user_input)
 
     # compile graph
-    graph_part4 = part4_compile_graph()
+    
 
     config = {"configurable": {"thread_id": "1"}}
 
@@ -152,23 +154,115 @@ def api_part4():
                 socketio.emit("graph_part4", str(message))
         
         snapshot = graph_part4.get_state(config)
+
+
         ic(snapshot.next)
         ic(snapshot.next[0])
 
         next = snapshot.next[0]
         ic(next)
 
+
         if next=="tools":
             return "tools"
 
+        '''
         existing_message = snapshot.values["messages"][-1]
         ic(existing_message.tool_calls)
-
+        '''
 
     else:
         ic("we don't have graph_part4")
 
     return "Done"
+
+# trying to implement variant with a class
+@app.route('/api/quick_start/part5_1', methods= ['POST'])
+def api_part5_1():
+    ic("api_part5_1")
+
+    user_input = request.get_json()['user_input']
+    ic(user_input)
+
+    config = {"configurable": {"thread_id": "1"}}
+
+    graphPart5.stream(user_input=user_input, config=config)
+
+
+    snapshot = graphPart5.graph.get_state(config=config)
+    ic(snapshot)
+    ic(snapshot.next)
+
+    existing_message = snapshot.values["messages"][-1]
+    ic(existing_message)
+
+    return "OK - p1"
+    
+
+#updateState
+@app.route('/api/quick_start/part5_2', methods= ['POST'])
+def api_part5_2():
+    ic("api_part5_2")
+
+    user_input = request.get_json()['user_input']
+    ic(user_input)
+    config = {"configurable": {"thread_id": "1"}}
+
+    snapshot = graphPart5.graph.get_state(config=config)
+    existing_message = snapshot.values["messages"][-1]
+    ic("before ne messages")
+    ic(existing_message)
+
+
+
+    answer = user_input
+
+    new_messages = [
+        # The LLM API expects some ToolMessage to match its tool call. We'll satisfy that here.
+        ToolMessage(content=answer, tool_call_id=existing_message.tool_calls[0]["id"]),
+        # And then directly "put words in the LLM's mouth" by populating its response.
+        AIMessage(content=answer),
+    ]
+
+    ic(new_messages[-1])
+
+    graphPart5.updateGraphState(config=config, new_messages=new_messages)
+
+    snapshot = graphPart5.getSnapshot(config=config)
+        
+    # ic(snapshot)
+    ic(snapshot.next)
+
+    last2messages = snapshot.values["messages"][-2]
+    ic(last2messages)
+
+    return "OK - p2"
+
+
+
+
+
+#test api call with 2 params
+@app.route('/api/quick_start/part5_3', methods= ['POST'])
+def api_part5_3():
+    ic("api_part5_3")
+
+    user_input = request.get_json()['user_input']
+    part = request.get_json()['part']
+
+    ic(user_input)
+    ic(part)
+
+
+    if part == "part1":
+        ic("here code for part==part1")
+    else:
+        ic("here code for part==part2")
+
+    resp = f"api was called with {part}"
+    return resp
+
+
 
 
 
@@ -191,9 +285,17 @@ def api_playground():
    
     return "OK"
     
+### end routes
 
 
+# listeners
+@socketio.on('part4_proceed')
+def part4_proceed(data):
+    ic("part4_proceed: " + str(data))
+    config = {"configurable": {"thread_id": "1"}}
+    proceedWithNone(graph=graph_part4, config=config)
 
+### end listeners
 
 
 # endregion
