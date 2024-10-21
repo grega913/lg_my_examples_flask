@@ -13,6 +13,7 @@ from tutorials.quick_start.part2 import part2_compile_graph
 from tutorials.quick_start.part3 import part3_compile_graph
 from tutorials.quick_start.part4 import part4_compile_graph
 from tutorials.quick_start.part5 import GraphPart5
+from tutorials.quick_start.part7 import GraphPart7
 
 from playground.playground import square_numbers
 
@@ -23,15 +24,17 @@ socketio = SocketIO(app)
 
 graph_part4 = part4_compile_graph()
 
+
 # graph as Class
 graphPart5 = GraphPart5()
+graphPart7 = GraphPart7()
 
 
 
 # region Routes
 @app.route('/index')
-def index():
-    return render_template('index.html')
+def index(name="Default Name"):
+    return render_template('index.html', name=name)
 
 @app.route('/about')
 def about():
@@ -278,6 +281,54 @@ def info():
 def test_ext():
     return render_template('bootstrap/test_ext.html')
 
+
+# test sumbitting a form data
+@app.route('/submit_form', methods=['POST', 'GET'])
+def submit_form():
+    if request.method == 'POST':
+        # This is where you'll invoke your function
+        ic("we are in post block")
+        ic(request)
+
+        value = request.form.get('exampleFormControlInput1')
+        ic(request)
+        ic(value)
+    return render_template('index.html', name = value)
+
+
+@app.route('/submit_form_part7', methods=['POST', 'GET'])
+def submit_form_part7():
+    ic("def submit_form_part7")
+
+    if request.method == 'POST':
+        # This is where you'll invoke your function
+        ic("we are in post block")
+
+
+        users_input = request.form.get('exampleFormControlInput7')
+
+        ic(users_input)
+
+        graph = graphPart7.graph
+        config = {"configurable": {"thread_id": "1"}}
+
+        events = graph.stream(
+            {
+                "messages": [
+                    ("user", users_input)
+                ]
+            },
+            config,
+            stream_mode="values",
+    )
+    for event in events:
+        if "messages" in event:
+            ic(event["messages"][-1])
+
+
+
+
+    return render_template('index.html')
 
 
 

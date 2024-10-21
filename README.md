@@ -1,4 +1,4 @@
-# LangGraph Tutorials and HowTos with Flask.
+# LangGraph Tutorials and HowTos with Flask, Bootstrap.
 
 ## 20241021 - Bootstrap
 
@@ -8,7 +8,7 @@ Playing around with Bootsrap. Created 3 routes:
 - bootstrap/info -> bootstrap/info.html
 - bootstrap/test_ext -> boostrap/test_ext.html
 
-Messing around with extending temlates . . from base.html and using macros in base.html
+Messing around with extending templates . . from base.html and using macros in base.html
 
 ## Main Logic goes like this:
 

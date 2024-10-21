@@ -15,18 +15,16 @@
 {% endblock %}
 
 {% block content %}
+    <h1>Welcome to my website!</h1>
 
+    <p>This is an extension of bootstrap/base.html template with buttons macros below.</p>
 
-<h1>Welcome to my website!</h1>
+    {% from 'bootstrap/base.html' import buttons %}
+    {{ buttons() }}
 
-<p>This is an extension of bootstrap/base.html template with buttons macros below.</p>
-
-{% from 'bootstrap/base.html' import buttons %}
-{{ buttons() }}
-
-{% from 'bootstrap/base.html' import loading_buttons %}
-<h3> Loading Buttons</h3>
-{{ loading_buttons() }}
+    {% from 'bootstrap/base.html' import loading_buttons %}
+    <h3> Loading Buttons</h3>
+    {{ loading_buttons() }}
 
 
 {% endblock %}

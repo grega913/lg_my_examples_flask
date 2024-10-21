@@ -1,69 +1,84 @@
-<!DOCTYPE html>
-<html>
+<!-- info.html -->
 
-<head>
-    <!--<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/socket.io/client-dist/socket.io.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <script src="{{ url_for('static', filename='js/part5.js') }}"></script>
+{% extends 'quick_start/quick_start_base.html' %}
 
-
-    <title>Part7</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script type="text/javascript">
+{% block title %}Part 7{% endblock %}
 
 
 
 
-    </script>
-</head>
 
-<body>
+{% block header %}
+    <script src="{{ url_for('static', filename='js/part7.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <h1>This is Part 7</h1>
+    <li id="currentTime"></li>
 
 
-
-    <div class="container">
-        <h1>Welcome to the Part 7: Time travel</h1>
-
+    <p>
+        This is Part 7 of tutorial from
         <a href="https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-7-time-travel">
             https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-7-time-travel
         </a>
-        <img src="{{ url_for('static', filename='images/graph_part6.jpeg') }}" />
-
-        <ul id="messageList"></ul>
-        <div id="text-area"></div>
-    </div>
-
-
-
+    </p>
     
-
-
+    <p>Time Travel</p>
     
+    
+    <img src="{{ url_for('static', filename='images/graph_part7.jpeg') }}" />
 
 
 
+    {% from 'quick_start/quick_start_base.html' import buttons %}
+    {% from 'quick_start/quick_start_base.html' import buttons_p %}
+    {{ buttons() }}
+    {{ buttons() }}
+
+    {{ buttons_p([
+    {'name': 'Primary', 'type': 'primary'},
+    {'name': 'Secondary', 'type': 'secondary'},
+    {'name': 'Success', 'type': 'success'}
+    ]) }}
 
 
- 
+    <div id="currentTime_2"></div>
 
+<!--test form - we need name attribute for python and id attriute for js??-->
+<!--<form action=" {{ url_for ('submit_form') }}" method="post">
+    <div class="mb-3">
 
+        <label for="exampleFormControlInput1" class="form-label">Enter the value.</label>
 
-
-    <div id="loading-spinner" style="display: none;">
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
+        <input type="text" class="form-control" id="exampleFormControlInput1" name="exampleFormControlInput1" placeholder="example@example.com">
     </div>
+    <div class="text-center"> <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+-->
 
 
-    <script>
-        btnsForm2()
-    </script>
-</body>
+<form action=" {{ url_for ('submit_form_part7') }}" method="post">
+    <div class="mb-3">
+
+        <label for="exampleFormControlInput7" class="form-label">Enter the value.</label>
+        <p>I'm learning LangGraph. Could you do some research on it for me?</p>
+        <input type="text" class="form-control" id="exampleFormControlInput7" name="exampleFormControlInput7"
+            placeholder="paste here">
+    </div>
+    <div class="text-center"> <button type="submit" class="btn btn-primary">Stream Response here</button>
+    </div>
+</form>
 
 
 
-</html>
+
+
+
+{% endblock %}
+
+
+
+
+
