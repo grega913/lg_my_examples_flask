@@ -1,0 +1,32 @@
+<!-- info.html -->
+
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}Welcome to my website{% endblock %}
+
+{% block header %}
+<nav>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+
+<h1>Welcome to my website!</h1>
+
+<p>This is an extension of bootstrap/base.html template with buttons macros below.</p>
+
+{% from 'bootstrap/base.html' import buttons %}
+{{ buttons() }}
+
+{% from 'bootstrap/base.html' import loading_buttons %}
+<h3> Loading Buttons</h3>
+{{ loading_buttons() }}
+
+
+{% endblock %}

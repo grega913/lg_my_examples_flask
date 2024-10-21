@@ -109,7 +109,6 @@ class GraphPart5:
             if "messages" in event:
                 ic(event["messages"][-1])
 
-
     def updateGraphState(self, config, new_messages):
         ic("updateState in GraphPart5")
         self.graph.update_state(

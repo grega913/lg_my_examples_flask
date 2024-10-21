@@ -1,5 +1,15 @@
 # LangGraph Tutorials and HowTos with Flask.
 
+## 20241021 - Bootstrap
+
+Playing around with Bootsrap. Created 3 routes:
+
+- bootstrap/boostrap -> bootstrap/bootstrap.html
+- bootstrap/info -> bootstrap/info.html
+- bootstrap/test_ext -> boostrap/test_ext.html
+
+Messing around with extending temlates . . from base.html and using macros in base.html
+
 ## Main Logic goes like this:
 
 1. Create a route [GET] for rendering template -> main.py All routes are defined here

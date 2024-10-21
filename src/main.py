@@ -239,9 +239,6 @@ def api_part5_2():
     return "OK - p2"
 
 
-
-
-
 #test api call with 2 params
 @app.route('/api/quick_start/part5_3', methods= ['POST'])
 def api_part5_3():
@@ -263,6 +260,23 @@ def api_part5_3():
     return resp
 
 
+
+
+#bootstrap
+@app.route("/bootstrap/bootstrap")
+def bootstrap():
+    return render_template('bootstrap/bootstrap.html')
+
+
+# extend test - info
+@app.route("/bootstrap/info")
+def info():
+    return render_template('bootstrap/info.html')
+
+# extend test - info
+@app.route("/bootstrap/test_ext")
+def test_ext():
+    return render_template('bootstrap/test_ext.html')
 
 
 

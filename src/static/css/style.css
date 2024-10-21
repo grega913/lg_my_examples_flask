@@ -162,3 +162,23 @@ p {
 .form2 button {
     margin: 0 5px;
 }
+
+
+.danger-zone {
+    background-color: #f2dede;
+    /* light red background */
+    border: 1px solid #ebccd1;
+    /* light red border */
+    padding: 10px;
+    border-radius: 5px;
+    width: fit-content;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.danger-zone i {
+    font-size: 24px;
+    color: #c00;
+    /* red icon color */
+    margin-right: 10px;
+}
