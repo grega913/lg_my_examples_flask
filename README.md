@@ -5,7 +5,7 @@
 OnboardingAssistant added:
 
 - @app.route("/al_cohort/lesson8", methods= ['POST', 'GET'])
--
+- This is the flask version of Alejandro's code from lesson8 - OnboardingAssistant for Umbrella corp.
 
 ## 20241021 - Bootstrap
 
