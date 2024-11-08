@@ -8,3 +8,8 @@ langchain_community
 icecream
 langchain_openai
 langchain_chroma
+faker
+pypdf
+flask-session
+flask-caching
+chromadb

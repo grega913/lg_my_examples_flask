@@ -1,5 +1,12 @@
 # LangGraph Tutorials and HowTos with Flask, Bootstrap.
 
+## 20241108
+
+OnboardingAssistant added:
+
+- @app.route("/al_cohort/lesson8", methods= ['POST', 'GET'])
+-
+
 ## 20241021 - Bootstrap
 
 Playing around with Bootsrap. Created 3 routes:
