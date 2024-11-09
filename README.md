@@ -1,5 +1,11 @@
 # LangGraph Tutorials and HowTos with Flask, Bootstrap.
 
+## 20241109 - Playing with extending templates, macros, ...
+
+- src/templates/quick_start/quick_start_base.html -> base template
+- src/templates/quick_start/part1_2.html -> is extending base tempalte
+- src/templates/playground/macros -> few macros defined, that are imported into templates
+
 ## 20241108 - OnboardingAssistant for Umbrella Corp
 
 OnboardingAssistant added:

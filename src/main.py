@@ -46,7 +46,7 @@ app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 
 
-
+mock_user = get_user_data()
 
 
 # graph_part4 = part4_compile_graph()
@@ -76,6 +76,8 @@ def playground():
 def quick_start(path):
     if path =="part1":
         return render_template('quick_start/part1.html')
+    elif path == "part1_2":
+        return render_template('quick_start/part1_2.html', user = mock_user)
     elif path =="part2":
        return render_template('quick_start/part2.html')
     elif path == "part3":

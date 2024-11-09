@@ -1,77 +1,150 @@
-<!-- base.html -->
+<!-- from https://github.com/codzsword/bootstrap-sidebar -->
 
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{% endblock %}</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/socket.io/client-dist/socket.io.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js" defer></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    {% block header %}{% endblock %}
-    </head>
+    
+    <title>{% block title %}Welcome to my website{% endblock %}</title>
 
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/socket.io/client-dist/socket.io.min.js" defer></script>
+    <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/al_cohort/lesson8.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lesson8.css') }}">
 
+</head>
 
 <body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="h-100">
+                <div class="sidebar-logo">
+                    <div class="userinfo">
+                    {% block userinfo %}{% endblock %}
+                    </div>
 
-    
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+                </div>
 
-    
+            </div>
+        </aside>
 
-    {% macro buttons() %}
-    <h4>Buttons</h4>
-    <div class="d-flex gap-2 justify-content-center py-5">
-        <button class="btn btn-primary rounded-pill px-3" type="button">Primary</button>
-        <button class="btn btn-secondary rounded-pill px-3" type="button">Secondary</button>
-        <button class="btn btn-success rounded-pill px-3" type="button">Success</button>
-        <button class="btn btn-danger rounded-pill px-3" type="button">Danger</button>
-        <button class="btn btn-warning rounded-pill px-3" type="button">Warning</button>
-        <button class="btn btn-info rounded-pill px-3" type="button">Info</button>
-        <button class="btn btn-light rounded-pill px-3" type="button">Light</button>
-        <button class="btn btn-dark rounded-pill px-3" type="button">Dark</button>
-        <button class="btn btn-link rounded-pill px-3" type="button">Link</button>
+        <!-- Main Component -->
+        <div class="main">
+
+            <nav class="navbar navbar-expand px-3 border-bottom">
+                <!-- Button for sidebar toggle -->
+                <button class="btn" type="button" data-bs-theme="dark">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </nav>
+            {% block titleContent %}{% endblock %}
+
+            <!--Accordion for description-->
+
+
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+
+                            {% block AccordionTitle %}  {% endblock %}
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>class <code>OnboardingAssistant_2</code></strong>
+                            <ul>
+                                <li>1. Main class for this is <code>OnboardingAssistant_2</code> in l8_helperz.py file
+                                </li>
+                                <li>2. Data for employee information is in session['user'] - get's filled with
+                                    firstrequest</li>
+                                <li>3. Data for messages is in session['messages'] - function that is appending is
+                                    <code>appendMessageToSessionMessages.</code></li>
+                                <li>4. in main.py class is initialized outside/before the route, so that it is only
+                                    called once</li>
+                            </ul>
+                            <strong>VectorStore - defined in init_vector_store_2</strong>
+                            <ul>
+                                <li>1. VectorStore is defined in function <code> init_vector_store_2 </code> in
+                                    l8_helperz.py file </li>
+                                <li>2. Content for that vectrorstore is in a file: data/umbrella_corp_policies.pdf</li>
+                            </ul>
+                            <strong>ToDo</strong>
+                            <ul>
+                                <li>1. css in file: <code>src/static/css/lesson8</code> . . make it beautifuler</li>
+                                <li>2. js in file: <code>src/static/js/al_cohort/lesson8.js</code>. . add code here</li>
+                                <li></li>
+                                <li>maybe could apply socket insteasd of reloading a page after every request to the api
+                                </li>
+                            </ul>
+
+                            <ul>
+                                {% block Form1 %} {% endblock %}
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <main class="content px-3 py-2">
+                <div class="container-fluid">
+
+                    <!--Messages displayed-->
+                    <div>
+                        <!--<h1>Messages</h1> displaying messages from route in python here-->
+                        <ul>
+                            {% for message in messages %}
+                            <li {% if message.role=='ai' %} class="ai-message" {% elif message.role=='user' %}
+                                class="user-message" {% endif %}>
+                                {{ message.content}}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <!-- here should be input box-->
+                    <form action=" {{ url_for ('lesson8') }}" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="input_field_lesson8" id="input_field_lesson8"
+                                placeholder="Enter your input">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+
+
+                    <div>
+
+                    </div>
+
+                </div>
+            </main>
+        </div>
+
+
+
     </div>
-    {% endmacro %}
-
-
-
-    {% macro buttons_p(buttons_data) %}
-    <h4>Buttons</h4>
-    <div class="d-flex gap-2 justify-content-center py-5">
-        {% for button in buttons_data %}
-        <button class="btn btn-{{ button.type }} rounded-pill px-3" type="button">{{ button.name }}</button>
-        {% endfor %}
-    </div>
-    {% endmacro %}
 
 
 
 
-    <script>
-        // Call the function every second to update the time
-        setInterval(displayCurrentTime, 1000);
-        setInterval(displayCurrentTime_2, 2500)
-    </script>
 
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-
 </body>
 
 </html>

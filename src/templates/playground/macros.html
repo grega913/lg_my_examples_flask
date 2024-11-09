@@ -1,0 +1,16 @@
+{% macro test_button(class, href, text, id) %}
+<button class="{{ class }}" href="{{ href }}" id="{{ id }}">{{ text }}</button>
+{% endmacro %}
+
+
+
+
+{% macro form_input(action, name, id, text) %}
+<form action=" {{ url_for (action) }}" method="post">
+    <div class="form-group">
+        <input type="text" class="form-control" name={{name}} id={{id}}
+            placeholder="Enter your input">
+    </div>
+    <button type="submit" class="btn btn-primary">{{text}}</button>
+</form>
+{% endmacro %}

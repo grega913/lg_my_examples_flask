@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function(){
     const myBtnEl = document.getElementById("my-button")
     
 
-
     function callApiDatapoint1() {
         console.log("callApiDatapoint1")
 
