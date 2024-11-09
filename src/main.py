@@ -25,13 +25,15 @@ from al_cohort.lesson8.l8_prompts import SYSTEM_PROMPT,WELCOME_MESSAGE
 from langchain_groq import ChatGroq
 
 llm = ChatGroq(model="llama-3.1-8b-instant")
-
+'''
 dir_path = os.path.dirname(os.path.abspath(__file__))
 vectorstore_path = os.path.join(dir_path, "al_cohort", "lesson8", "vectorstore")
 policy_file_path = os.path.join(dir_path, "al_cohort", "lesson8", "data", "umbrella_corp_policies.pdf")
 
 ic(vectorstore_path)
 ic(policy_file_path)
+'''
+onboardingAssistant = None
 
 # defining app
 app = Flask(__name__)
@@ -57,6 +59,19 @@ mock_user = get_user_data()
 graphPart5 = GraphPart5()
 graphPart7 = GraphPart7()
 '''
+
+
+# this is the function performed before request is made - we can use it to do some jobs before request is made
+@app.before_request
+def before_request():
+    ic(f"def before request and request is {request}")
+    if request.path == '/lg_tutorials/quick_start/part1_2':
+        ic(f"our route . . will wait now")
+        # Perform operation here
+        ic(f"Before specific route, and request.path is {request.path}")
+
+
+
 
 
 # region Routes
@@ -345,6 +360,19 @@ def submit_form():
         ic(value)
     return render_template('index.html', name = value)
 
+
+@app.route('/submit_form_mock', methods=['POST', 'GET'])
+def submit_form_mock():
+    if request.method == 'POST':
+        # This is where you'll invoke your function
+        ic("we are in post block of def submit_form_rock")
+        ic(request)
+
+        value = request.form.get('submit_form_mock')
+        ic(request)
+        ic(value)
+    return render_template('quick_start/part1_2.html', user = mock_user)
+
 '''
 @app.route('/submit_form_part7', methods=['POST', 'GET'])
 def submit_form_part7():
@@ -430,14 +458,14 @@ def part4_proceed(data):
 
 # vector_store = init_vector_store_2(pdf_path=policy_file_path, persistent_path=vectorstore_path)
 
-
+'''
 onboardingAssistant = OnboardingAssistant_2(
     system_prompt = SYSTEM_PROMPT,
     llm=llm,
     persist_directory=vectorstore_path,
     session = session
 )
-
+'''
 # this is the route for lesson8 - 
 @app.route("/al_cohort/lesson8", methods= ['POST', 'GET'])
 def lesson8():

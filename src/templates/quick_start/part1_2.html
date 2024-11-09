@@ -1,31 +1,30 @@
-{% extends 'quick_start/quick_start_base.html' %}
+{% extends 'quick_start/quick_start_base_2.html' %}
 
-<title>{% block title %}Part1_2{% endblock %}</title>
+{% block title %}Part1 - Build a Basic Chatbot {% endblock %}
 
 
-{% block userinfo %}
-<h1>This is Block Userinfo written in part_1_2.html</h1>
-<h2>This is written in part1_2.html</h2>
-<p>This is written in part1_2.html</p>
-<div> {{ user.email }}</div>
+
+{% block titleContentAndLink %}
+    {% from "playground/macros.html" import macro_title_and_link %}
+    {{ macro_title_and_link(title = "Part 1: Build a Basic Chatbot", link = "https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-1-build-a-basic-chatbot")}}
 {% endblock %}
 
 
-
-{% block titleContent %}
-    <h1 class = "blockTitle">This is block title in part1_2.html</h1>
+{% block accordion %}
+    {% from "playground/macros.html" import macro_accordion %}
+    {{ macro_accordion(
+        title = "Part 1: Build a Basic Chatbot",
+        link = "https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-1-build-a-basic-chatbot",
+        img= "/graph.jpeg"
+    )}}
 {% endblock %}
 
 
-{% block AccordionTitle %}
-    Onboarding Assistent with Umbrella Corporation - This is the version of Alejandro's Cohort
-    Lesson8, made with Flask, obviously. And this is in part1_2.html of course.
+{% block inputForm %}
+    {% from "playground/macros.html" import form_input_3 %}
+    {{ form_input_3(action = "lesson8", name="input_field_lesson8", id ="input_field_lesson8", placeholder = "something")}}
 {% endblock %}
 
-{% block Form1 %}
-    {% from "playground/macros.html" import form_input %}
-    {{ form_input( action = "lesson8", name="input_field_lesson8", id ="input_field_lesson8", text = "Do Me . .this is in part1_2.html") }}
- {% endblock %}
 
 
 

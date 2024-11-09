@@ -1,0 +1,83 @@
+<!-- from https://github.com/codzsword/bootstrap-sidebar -->
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Welcome to my website{% endblock %}</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/socket.io/client-dist/socket.io.min.js"></script>
+    <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/quick_start.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="h-100">
+                <!--importing navigation here-->
+                {% from "playground/macros.html" import macro_navigation_quick_start %}
+                {{ macro_navigation_quick_start() }}
+            </div>
+        </aside>
+
+        <!-- Main Component -->
+        <div class="main">
+
+            <nav class="navbar navbar-expand px-3 border-bottom">
+                <!-- Button for sidebar toggle -->
+                <button class="btn" type="button" data-bs-theme="dark">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </nav>
+            <!--{% block titleContentAndLink %}{% endblock %}-->
+
+            <!--Accordion for description-->
+            {% block accordion %}{% endblock %}
+
+            <main class="content px-3 py-2">
+                <div class="container-fluid">
+                    <div class="message-container">
+                        <!--Messages displayed-->
+                        <div>
+                            <ul>
+                                {% for message in messages %}
+                                <li {% if message.role=='ai' %} class="ai-message" {% elif message.role=='user' %}
+                                    class="user-message" {% endif %}>
+                                    {{ message.content}}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+            
+                        <div>
+                            <!-- inputForm here . . defined in macros, as we should be calling different params -->
+                            {% block inputForm %}{% endblock %}
+
+                        </div>
+            
+                    </div>
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

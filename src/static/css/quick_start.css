@@ -21,8 +21,7 @@ h3 {
 }
 
 h2 {
-
-    color: #FFF;
+    color: #000;
 }
 
 a {
@@ -33,7 +32,7 @@ a {
 
 li {
     list-style: none;
-    
+
 }
 
 /* Layout skeleton */
@@ -242,4 +241,11 @@ a.sidebar-link {
 .form-container button[type="submit"]:hover {
     /* Set the background color to #3e8e41 on hover */
     background-color: #3e8e41;
+}
+
+
+
+.accordion-title {
+
+    color:black
 }

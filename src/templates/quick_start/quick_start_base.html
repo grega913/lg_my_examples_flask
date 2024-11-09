@@ -15,6 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/socket.io/client-dist/socket.io.min.js" defer></script>
     <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/al_cohort/lesson8.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/lesson8.css') }}">
 
 </head>
@@ -91,6 +92,12 @@
                                 {% block Form1 %} {% endblock %}
                             </ul>
 
+                            <ul>
+                            {% from "playground/macros.html" import form_input_2 %}
+                            {{ form_input_2(action = "lesson8", name="input_field_lesson8", id ="input_field_lesson8", text = "Do Me . .this is in part1_2.html") }}
+                            </ul>
+
+
                         </div>
                     </div>
                 </div>
@@ -115,15 +122,9 @@
                     </div>
 
                     <!-- here should be input box-->
-                    <form action=" {{ url_for ('lesson8') }}" method="post">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="input_field_lesson8" id="input_field_lesson8"
-                                placeholder="Enter your input">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-
-
+                    {% from "playground/macros.html" import form_input_3 %}
+                    {{ form_input_3(action = "lesson8", name="input_field_lesson8", id ="input_field_lesson8", placeholder = "write here") }}
+       
                     <div>
 
                     </div>

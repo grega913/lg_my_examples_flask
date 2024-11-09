@@ -10,6 +10,11 @@ function displayCurrentTime() {
 
 document.addEventListener("DOMContentLoaded", function(){
 
+        const toggler = document.querySelector(".btn");
+        toggler.addEventListener("click", function(){
+        document.querySelector("#sidebar").classList.toggle("collapsed");
+    });
+
     
     const messageInputEl = document.getElementById("message-input")
     const myBtnEl = document.getElementById("my-button")
@@ -66,6 +71,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 });
+
+
 
 
 

@@ -14,3 +14,305 @@
     <button type="submit" class="btn btn-primary">{{text}}</button>
 </form>
 {% endmacro %}
+
+
+{% macro form_input_2(action, name, id, placeholder, text) %}
+<form action="{{ url_for(action) }}" method="post">
+    <div class="form-group">
+        <input type="text" class="form-control" name="{{name}}" id="{{id}}" placeholder="Enter your input">
+        <button type="submit" class="btn btn-primary form-control-icon">
+            <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+</form>
+{% endmacro %}
+
+<!--FORM this is a input field and a inline button/icon-->
+
+{% macro form_input_3(action, name, id, placeholder) %}
+<form action="{{ url_for(action) }}" method="post">
+    <div class="input-group">
+        <input type="text" class="form-control" name={{name}} placeholder={{placeholder}} aria-label="Input group example" aria-describedby="basic-addon1" id={{id}} autofocus>
+        <button class="input-group-text" id="basic-addon1" type="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
+                </path>
+            </svg>
+        </button>
+    </div>
+</form>
+{% endmacro %}
+
+
+
+{% macro macro_user_info(user) %}
+<div class="userinfo">
+    <a href="#" class="d-flex align-items-center">
+        <img src="..." alt="User Avatar" class="rounded-circle me-2" width="20">
+        <h5>
+            {{ user.name }} {{ user.lastname }}
+        </h5>
+    </a>
+    <ul class="list-unstyled">
+        <li><strong>Email:</strong> {{ user.email }}</li>
+        <li><strong>Phone Number:</strong> {{ user.phone_number }}</li>
+        <li><strong>Position:</strong> {{ user.position }}</li>
+        <li><strong>Department:</strong> {{ user.department }}</li>
+        <li><strong>Location:</strong> {{ user.location }}</li>
+        <li><strong>Hire Date:</strong> {{ user.hire_date }}</li>
+        <li><strong>Supervisor:</strong> {{ user.supervisor }}</li>
+        <li><strong>Salary:</strong> {{ user.salary }}</li>
+    </ul>
+
+</div>
+{% endmacro %}
+
+
+
+{% macro macro_navigation() %}
+<ul class="sidebar-nav">
+    <li class="sidebar-header">
+        Tools & Components
+    </li>
+    <li class="sidebar-item">
+        <a href="#" class="sidebar-link">
+            <i class="fa-solid fa-list pe-2"></i>
+            Profile
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#pages"
+            aria-expanded="false" aria-controls="pages">
+            <i class="fa-regular fa-file-lines pe-2"></i>
+            Pages
+        </a>
+        <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Analytics</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Ecommerce</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Crypto</a>
+            </li>
+        </ul>
+    </li>
+    <li class="sidebar-item">
+        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard"
+            aria-expanded="false" aria-controls="dashboard">
+            <i class="fa-solid fa-sliders pe-2"></i>
+            Dashboard
+        </a>
+        <ul id="dashboard" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Dashboard Analytics</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Dashboard Ecommerce</a>
+            </li>
+        </ul>
+    </li>
+    <li class="sidebar-item">
+        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#auth"
+            aria-expanded="false" aria-controls="auth">
+            <i class="fa-regular fa-user pe-2"></i>
+            Auth
+        </a>
+        <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Login</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Register</a>
+            </li>
+        </ul>
+    </li>
+    <li class="sidebar-header">
+        Multi Level Nav
+    </li>
+    <li class="sidebar-item">
+        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#multi"
+            aria-expanded="false" aria-controls="multi">
+            <i class="fa-solid fa-share-nodes pe-2"></i>
+            Multi Level
+        </a>
+        <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#multi-two"
+                    aria-expanded="false" aria-controls="multi-two">
+                    Two Links
+                </a>
+                <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">Link 1</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">Link 2</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+{% endmacro %}
+
+
+
+
+
+{% macro macro_accordion(title, link, img) %}
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    <a href={{ link }} target="_blank">
+                        <h3 class="accordion-title">{{ title }}</h3>
+                    </a>
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+
+                    <img src="{{ url_for('static', filename='images' + img) }}" />
+
+                    <strong>class <code>OnboardingAssistant_2</code></strong>
+                    <ul>
+                        <li>1. Main class for this is <code>OnboardingAssistant_2</code> in l8_helperz.py file
+                        </li>
+                        <li>2. Data for employee information is in session['user'] - get's filled with
+                            firstrequest</li>
+                        <li>3. Data for messages is in session['messages'] - function that is appending is
+                            <code>appendMessageToSessionMessages.</code>
+                        </li>
+                        <li>4. in main.py class is initialized outside/before the route, so that it is only
+                            called once</li>
+                    </ul>
+                    <strong>VectorStore - defined in init_vector_store_2</strong>
+                    <ul>
+                        <li>1. VectorStore is defined in function <code> init_vector_store_2 </code> in
+                            l8_helperz.py file </li>
+                        <li>2. Content for that vectrorstore is in a file: data/umbrella_corp_policies.pdf</li>
+                    </ul>
+                    <strong>ToDo</strong>
+                    <ul>
+                        <li>1. css in file: <code>src/static/css/lesson8</code> . . make it beautifuler</li>
+                        <li>2. js in file: <code>src/static/js/al_cohort/lesson8.js</code>. . add code here</li>
+                        <li></li>
+                        <li>maybe could apply socket insteasd of reloading a page after every request to the api
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+
+
+
+{% macro macro_navigation_quick_start() %}
+<ul class="sidebar-nav">
+    <li class="sidebar-header">
+        Tutorials from LangGraph
+    </li>
+
+    <li class="sidebar-item">
+        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#quickstart"
+            aria-expanded="false" aria-controls="QuickStart">
+            <i class="fa-regular fa-file-lines pe-2"></i>
+            QuickStart
+        </a>
+        <ul id="quickstart" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+                <a href="/lg_tutorials/quick_start/part1_2" class="sidebar-link">Part1</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/lg_tutorials/quick_start/part2_2#" class="sidebar-link">Part2</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/lg_tutorials/quick_start/part3_2#" class="sidebar-link">Part3</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/lg_tutorials/quick_start/part4_2#" class="sidebar-link">Part4</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/lg_tutorials/quick_start/part5_2#" class="sidebar-link">Part5</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/lg_tutorials/quick_start/part6_2#" class="sidebar-link">Part6</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/lg_tutorials/quick_start/part7_2#" class="sidebar-link">Part7</a>
+            </li>
+        </ul>
+    </li>
+    <li class="sidebar-item">
+        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard"
+            aria-expanded="false" aria-controls="dashboard">
+            <i class="fa-solid fa-sliders pe-2"></i>
+            Dashboard
+        </a>
+        <ul id="dashboard" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Dashboard Analytics</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Dashboard Ecommerce</a>
+            </li>
+        </ul>
+    </li>
+    <li class="sidebar-item">
+        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#auth"
+            aria-expanded="false" aria-controls="auth">
+            <i class="fa-regular fa-user pe-2"></i>
+            Auth
+        </a>
+        <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Login</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Register</a>
+            </li>
+        </ul>
+    </li>
+    <li class="sidebar-header">
+        Multi Level Nav
+    </li>
+    <li class="sidebar-item">
+        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#multi"
+            aria-expanded="false" aria-controls="multi">
+            <i class="fa-solid fa-share-nodes pe-2"></i>
+            Multi Level
+        </a>
+        <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#multi-two"
+                    aria-expanded="false" aria-controls="multi-two">
+                    Two Links
+                </a>
+                <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">Link 1</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">Link 2</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+{% endmacro %}
+
+
+
+{% macro macro_title_and_link(title, link) %}
+<a href= {{ link }} target="_blank"><h2>{{ title }}</h2></a>
+{% endmacro %}
+

@@ -187,7 +187,26 @@ p {
 }
 
 
-/* SIDEBAR */
+.form-control-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.form-control-icon i {
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+    color: #337ab7;
+}
 
 
 
