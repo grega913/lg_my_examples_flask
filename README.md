@@ -1,5 +1,9 @@
 # LangGraph Tutorials and HowTos with Flask, Bootstrap.
 
+## 20241109 - Will do QuickStart Tutorial nicely, with base template and macros:
+
+- src/templates/quick_start/quick_start_base_2.html
+
 ## 20241109 - Playing with extending templates, macros, ...
 
 - src/templates/quick_start/quick_start_base.html -> base template

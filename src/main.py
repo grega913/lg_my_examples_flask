@@ -11,7 +11,7 @@ import os
 from langchain_core.messages import AIMessage, ToolMessage
 
 from tutorials.helperz_tutorials import stream_graph_updates, proceedWithNone
-from tutorials.quick_start.part1 import part1_compile_graph, part1_stream_graph
+from tutorials.quick_start.part1 import part1_compile_graph, part1_stream_graph, GraphPart1
 from tutorials.quick_start.part2 import part2_compile_graph
 from tutorials.quick_start.part3 import part3_compile_graph
 from tutorials.quick_start.part4 import part4_compile_graph
@@ -25,14 +25,16 @@ from al_cohort.lesson8.l8_prompts import SYSTEM_PROMPT,WELCOME_MESSAGE
 from langchain_groq import ChatGroq
 
 llm = ChatGroq(model="llama-3.1-8b-instant")
-'''
+
 dir_path = os.path.dirname(os.path.abspath(__file__))
 vectorstore_path = os.path.join(dir_path, "al_cohort", "lesson8", "vectorstore")
 policy_file_path = os.path.join(dir_path, "al_cohort", "lesson8", "data", "umbrella_corp_policies.pdf")
 
+
+
 ic(vectorstore_path)
 ic(policy_file_path)
-'''
+
 onboardingAssistant = None
 
 # defining app
@@ -47,8 +49,10 @@ app.config['SESSION_TYPE'] = 'filesystem'
 
 Session(app)
 
-
+''' initializing some variables, will make them global in "before_route and access them in route'''
 mock_user = get_user_data()
+graphPart1 = None # we'll defined it in before_request as a global variable and then use it in a route
+
 
 
 # graph_part4 = part4_compile_graph()
@@ -58,17 +62,30 @@ mock_user = get_user_data()
 ''' turn off for development
 graphPart5 = GraphPart5()
 graphPart7 = GraphPart7()
+
 '''
+
 
 
 # this is the function performed before request is made - we can use it to do some jobs before request is made
 @app.before_request
 def before_request():
     ic(f"def before request and request is {request}")
+    global graphPart1
+    
+
     if request.path == '/lg_tutorials/quick_start/part1_2':
-        ic(f"our route . . will wait now")
-        # Perform operation here
-        ic(f"Before specific route, and request.path is {request.path}")
+        if graphPart1 is None:
+            graphPart1 = GraphPart1()
+            graphPart1.compile_graph()
+            ic(graphPart1)
+    if request.path == '/lg_tutorials/quick_start/part2_2':
+        global graphPart2
+        if graphPart2 is None:
+            graphPart2 = GraphPart1()
+            graphPart2.compile_graph()
+            ic(graphPart2)
+
 
 
 
@@ -87,12 +104,33 @@ def about():
 def playground():
     return render_template('playground.html')
 
-@app.route('/lg_tutorials/quick_start/<path:path>')
+@app.route('/lg_tutorials/quick_start/<path:path>', methods = ['GET', 'POST'])
 def quick_start(path):
+
+    if not 'messages' in session:
+        session["messages"] = []
+
     if path =="part1":
         return render_template('quick_start/part1.html')
     elif path == "part1_2":
-        return render_template('quick_start/part1_2.html', user = mock_user)
+
+        response = ""
+
+        if request.method == 'POST':
+            # This is where you'll invoke your function
+            ic("we are in post block in part1_2")
+            users_input = request.form.get('input_field_graphPart1')
+            ic(users_input)
+                        
+            if graphPart1 is not None and users_input != "":
+                ic(f"should be sending to get_stream users_input: {users_input} ")
+                resp = graphPart1.stream(user_input=users_input)
+
+                appendMessageToSessionMessages(role = "user", message=users_input, session=session)
+                appendMessageToSessionMessages(role="ai", message=resp, session = session)
+
+            return render_template('quick_start/part1_2.html', user = mock_user, messages = session['messages'])
+    
     elif path =="part2":
        return render_template('quick_start/part2.html')
     elif path == "part3":
@@ -466,6 +504,25 @@ onboardingAssistant = OnboardingAssistant_2(
     session = session
 )
 '''
+
+
+
+def quick_start_part_1_2():
+
+    num = 0
+
+    if graphPart1 is not None:
+        graphPart1.stream
+    else:
+        ic(" we do not have graphPart1 in route")
+        pass
+
+
+    return num
+
+
+
+
 # this is the route for lesson8 - 
 @app.route("/al_cohort/lesson8", methods= ['POST', 'GET'])
 def lesson8():
@@ -519,4 +576,7 @@ def lesson8():
 
 
 if __name__ == '__main__':
+
+
+
     socketio.run(app, debug=True, use_reloader=True)

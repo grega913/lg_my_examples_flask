@@ -15,15 +15,32 @@
     {{ macro_accordion(
         title = "Part 1: Build a Basic Chatbot",
         link = "https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-1-build-a-basic-chatbot",
-        img= "/graph.jpeg"
-    )}}
+        img = "/graph.jpeg",
+        body_content =  "This is content in part1_2. The simplest possible ChatBot With LangGraph. No history, No Memory, No exteranl data. Single question and answer. Graph is defined before the route."
+        )}}
 {% endblock %}
 
 
 {% block inputForm %}
     {% from "playground/macros.html" import form_input_3 %}
-    {{ form_input_3(action = "lesson8", name="input_field_lesson8", id ="input_field_lesson8", placeholder = "something")}}
+    {{ form_input_3(action = "quick_start", path="part1_2", name="input_field_graphPart1", id ="input_field_graphPart1", placeholder = "something")}}
 {% endblock %}
+
+
+{% block messagesDisplayed %}
+    <ul>
+        
+        {% for message in messages %}
+        <li {% if message.role=='ai' %} class="ai-message" {% elif message.role=='user' %} class="user-message" {% endif %}>
+            {{ message.content}}
+        </li>
+ 
+        {% endfor %}
+    
+       
+    </ul>
+{% endblock %}
+
 
 
 
