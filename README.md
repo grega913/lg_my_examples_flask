@@ -1,5 +1,22 @@
 # LangGraph Tutorials and HowTos with Flask, Bootstrap.
 
+## 20241111 - Quickstart tutorial created differently
+
+1.  Templates are: - src/templates/quick_start/part1_2.html - src/templates/quick_start/part2_2.html - src/templates/quick_start/part3_2.html - src/templates/quick_start/part4_2.html - src/templates/quick_start/part5_2.html - src/templates/quick_start/part6_2.html
+    They are all extending base template: - src/templates/quick_start/quick_start_base.html - many elements are macros from src/templates/playground/macros
+
+2.  Classes for Graphs are defined in:
+
+    - src/tutorials/quick_start/part1.py
+    - src/tutorials/quick_start/part2.py
+    - src/tutorials/quick_start/part3.py
+    - src/tutorials/quick_start/part4.py
+    - src/tutorials/quick_start/part5.py
+    - src/tutorials/quick_start/part6.py
+
+3.  Some data is in session variable, defined in main.py - session['messages'], session ['user']
+4.  In code we want to initialize graph classes at right places.Usually this are variables created in @before_route as global variables. We can access them and perform some function within route on subsequent calls.
+
 ## 20241109 - Will do QuickStart Tutorial nicely, with base template and macros:
 
 - src/templates/quick_start/quick_start_base_2.html
