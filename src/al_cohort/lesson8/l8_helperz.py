@@ -189,7 +189,7 @@ def init_vector_store_2(pdf_path, persistent_path=""):
 
 
 def appendMessageToSessionMessages(role, message, session):
-    ic("def appendMessageToSessionMesages: ${message}")
+    ic("def appendMessageToSessionMesages: ${role}, ${message}")
 
 
     messages = session["messages"]

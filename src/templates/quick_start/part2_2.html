@@ -1,0 +1,45 @@
+{% extends 'quick_start/quick_start_base_2.html' %}
+
+{% block title %}Part2 - Part 2: Enhancing the Chatbot with Tools {% endblock %}
+
+
+
+{% block titleContentAndLink %}
+{% from "playground/macros.html" import macro_title_and_link %}
+{{ macro_title_and_link(title = "Part 2: Enhancing the Chatbot with Tools", link =
+"https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-2-enhancing-the-chatbot-with-tools")}}
+{% endblock %}
+
+
+{% block accordion %}
+{% from "playground/macros.html" import macro_accordion %}
+{{ macro_accordion(
+title = "Part 1: Build a Basic Chatbot",
+link = "https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-2-enhancing-the-chatbot-with-tools",
+img = "/graph_part2.jpeg",
+body_content = "This is content in part2_2.This is ChatBot with Tools. We can see in graph, that we have a NodeTool, that takes care of executing a tool call or route to END. Second of the events is a Tool Message."
+)}}
+{% endblock %}
+
+
+{% block inputForm %}
+{% from "playground/macros.html" import form_input_3 %}
+{{ form_input_3(action = "quick_start", path="part2_2", name="input_field_graphPart2", id ="input_field_graphPart2",
+placeholder = "something")}}
+{% endblock %}
+
+
+{% block messagesDisplayed %}
+<ul>
+
+    {% for message in messages %}
+    <li {% if message.role=='ai' %} class="ai-message" {% elif message.role=='user' %} class="user-message" {% endif %}>
+        {{ message.content}}
+    </li>
+    <li class="event"> {{ message }}</li>
+
+    {% endfor %}
+
+
+</ul>
+{% endblock %}

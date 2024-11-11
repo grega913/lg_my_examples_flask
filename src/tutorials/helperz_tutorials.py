@@ -1,4 +1,8 @@
 from icecream import ic
+import secrets
+import string
+
+from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
 
 def stream_graph_updates(graph, user_input: str):
     ic("def stream_graph_updates")
@@ -19,3 +23,24 @@ def proceedWithNone(graph, config):
         for event in events:
             if "messages" in event:
                 event["messages"][-1].pretty_print()
+
+
+
+def createRandomString():
+    ic("def createRandomString")
+    length = 16
+    random_string = ''.join(secrets.choice(string.ascii_letters + string.digits + string.punctuation) for _ in range(length))
+    ic(random_string)
+    return random_string
+
+
+
+def detect_message_type(message):
+    if isinstance(message, HumanMessage):
+        return {"role": "user", "content": message.content}
+    elif isinstance(message, ToolMessage):
+        return {"role": "tool", "content": message.content}
+    elif isinstance(message, AIMessage):
+        return {"role": "ai", "content": message.content}
+    else:
+        return {"role": "unknown", "content": None}

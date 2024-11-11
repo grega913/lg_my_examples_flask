@@ -60,6 +60,7 @@ class GraphPart1:
 
     def compile_graph(self):
         ic("def compile_graph")
+        
         self.graph_builder.add_node("chatbot", self.chatbot)
         self.graph_builder.set_entry_point("chatbot")
         self.graph_builder.set_finish_point("chatbot")

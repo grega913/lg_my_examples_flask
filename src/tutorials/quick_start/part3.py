@@ -64,26 +64,78 @@ def part3_compile_graph():
     return graph
 
 
+class GraphPart3():
+    def __init__(self, threadId:str):
+        self.memory = MemorySaver()
+        self.config = {"configurable": {"thread_id": threadId}}
+
+
+    def compile_graph(self):
+        ic(" - - - - - part3_compile_graph - - - - - ")
+
+        class State(TypedDict):
+            messages: Annotated[list, add_messages]
+
+        graph_builder = StateGraph(State)
+
+        tool = TavilySearchResults(max_results=2)
+        tools = [tool]
+
+        llm = ChatGroq()
+        llm_with_tools = llm.bind_tools(tools)
+
+        def chatbot(state: State):
+            return {"messages": [llm_with_tools.invoke(state["messages"])]}
+        
+
+        graph_builder.add_node("chatbot", chatbot)
+
+        tool_node = ToolNode(tools=[tool])
+        graph_builder.add_node("tools", tool_node)
+
+        graph_builder.add_conditional_edges(
+            "chatbot",
+            tools_condition,
+        )
+        graph_builder.add_edge("tools", "chatbot")
+        graph_builder.set_entry_point("chatbot")
+        self.graph = graph_builder.compile(checkpointer=self.memory)
+
+
+    def getStream(self, user_input:str):
+        ic(f"def getStream, self.config is ${self.config}")
+        events = self.graph.stream({"messages": [("user", user_input)]}, self.config, stream_mode="values")
+        return events
+
 
 
 if __name__ == "__main__":
     ic("def main")
 
+    '''
     graph = part3_compile_graph()
     ic("we have graph")
     user_input = "Hi there! My name is Marko Kovač."
     config = {"configurable": {"thread_id": "1"}}
+    '''
 
 
 
 
+
+
+
+    graphPart3 = GraphPart3(threadId="2")
+    graphPart3.compile_graph()
+    #config = {"configurable": {"thread_id": "1"}}
+    '''
     while True:
         try:
             user_input = input("User: ")
             if user_input.lower() in ["quit", "exit", "q"]:
                 print("Goodbye!")
                 break
-            events = graph.stream(
+            events = graphPart3.graph.stream(
                 {"messages": [("user", user_input)]}, config, stream_mode="values"
             )
             for event in events:
@@ -91,8 +143,26 @@ if __name__ == "__main__":
         except:
             user_input = "What do you know about LangGraph?"
             break
+    '''
 
+    while True:
+        try:
+            user_input = input("User: ")
+            if user_input.lower() in ["quit", "exit", "q"]:
+                print("Goodbye!")
+                break
+            
+            events_generator = graphPart3.getStream(user_input=user_input)
+            ic(type(events_generator))
+            for event in events_generator:
+                ic(type(event))
+                ic(event["messages"][-1])
+                
+                ic(" - - - - - - - - - - - ")
 
+        except:
+            user_input = "What do you know about LangGraph?"
+            break
 
     
 

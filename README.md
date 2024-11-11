@@ -2,7 +2,15 @@
 
 ## 20241111 - Quickstart tutorial created differently
 
-1.  Templates are: - src/templates/quick_start/part1_2.html - src/templates/quick_start/part2_2.html - src/templates/quick_start/part3_2.html - src/templates/quick_start/part4_2.html - src/templates/quick_start/part5_2.html - src/templates/quick_start/part6_2.html
+1.  Templates are:
+
+    - src/templates/quick_start/part1_2.html
+    - src/templates/quick_start/part2_2.html
+    - src/templates/quick_start/part3_2.html
+    - src/templates/quick_start/part4_2.html
+    - src/templates/quick_start/part5_2.html
+    - src/templates/quick_start/part6_2.html
+
     They are all extending base template: - src/templates/quick_start/quick_start_base.html - many elements are macros from src/templates/playground/macros
 
 2.  Classes for Graphs are defined in:

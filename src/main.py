@@ -1,7 +1,9 @@
-from flask import Flask, url_for, request, render_template, jsonify, session
+from flask import Flask, url_for, request, render_template, jsonify, session, redirect
 from flask_session import Session
 from flask_socketio import SocketIO
 from flask_caching import Cache
+
+import atexit
 
 from icecream import ic
 import time
@@ -10,10 +12,10 @@ import os
 
 from langchain_core.messages import AIMessage, ToolMessage
 
-from tutorials.helperz_tutorials import stream_graph_updates, proceedWithNone
+from tutorials.helperz_tutorials import stream_graph_updates, proceedWithNone, createRandomString, detect_message_type
 from tutorials.quick_start.part1 import part1_compile_graph, part1_stream_graph, GraphPart1
-from tutorials.quick_start.part2 import part2_compile_graph
-from tutorials.quick_start.part3 import part3_compile_graph
+from tutorials.quick_start.part2 import part2_compile_graph, GraphPart2
+from tutorials.quick_start.part3 import part3_compile_graph, GraphPart3
 from tutorials.quick_start.part4 import part4_compile_graph
 from tutorials.quick_start.part5 import GraphPart5
 from tutorials.quick_start.part7 import GraphPart7
@@ -29,6 +31,7 @@ llm = ChatGroq(model="llama-3.1-8b-instant")
 dir_path = os.path.dirname(os.path.abspath(__file__))
 vectorstore_path = os.path.join(dir_path, "al_cohort", "lesson8", "vectorstore")
 policy_file_path = os.path.join(dir_path, "al_cohort", "lesson8", "data", "umbrella_corp_policies.pdf")
+
 
 
 
@@ -52,6 +55,8 @@ Session(app)
 ''' initializing some variables, will make them global in "before_route and access them in route'''
 mock_user = get_user_data()
 graphPart1 = None # we'll defined it in before_request as a global variable and then use it in a route
+graphPart2 = None
+graphPart3 = None
 
 
 
@@ -70,7 +75,7 @@ graphPart7 = GraphPart7()
 # this is the function performed before request is made - we can use it to do some jobs before request is made
 @app.before_request
 def before_request():
-    ic(f"def before request and request is {request}")
+    #ic(f"def before request and request is {request}")
     global graphPart1
     
 
@@ -82,9 +87,20 @@ def before_request():
     if request.path == '/lg_tutorials/quick_start/part2_2':
         global graphPart2
         if graphPart2 is None:
-            graphPart2 = GraphPart1()
+            graphPart2 = GraphPart2()
             graphPart2.compile_graph()
             ic(graphPart2)
+    if request.path == '/lg_tutorials/quick_start/part3_2':
+        global graphPart3
+        if graphPart3 is None:
+            if not 'threadId' in session:
+                ic("we do not havev threadId in session, will create one")
+                session['threadId'] = createRandomString()
+            
+            graphPart3 = GraphPart3(session['threadId'])
+
+            graphPart3.compile_graph()
+            ic(graphPart3)
 
 
 
@@ -100,11 +116,21 @@ def index(name="Default Name"):
 def about():
     return render_template('about.html')
 
-@app.route("/playground")
+
+
+@app.route("/playground", methods= ['GET', 'POST'])
 def playground():
+    if request.method == 'POST':
+        time.sleep(5)
+        return render_template('playground.html', message="Function executed!")
+    else:
+        ic("else")
     return render_template('playground.html')
 
-@app.route('/lg_tutorials/quick_start/<path:path>', methods = ['GET', 'POST'])
+
+# this is main route for quick_start tutorial
+# it serves all parts, from part1 to part6
+@app.route('/lg_tutorials/quick_start/<path:path>', methods = [ 'POST', 'GET'])
 def quick_start(path):
 
     if not 'messages' in session:
@@ -133,8 +159,83 @@ def quick_start(path):
     
     elif path =="part2":
        return render_template('quick_start/part2.html')
+    
+    elif path == "part2_2":
+        events_count = 0
+        events = []
+
+        if request.method == 'POST':
+            # This is where you'll invoke your function
+            ic("we are in post block in part1_2")
+            user_input = request.form.get('input_field_graphPart2')
+            ic(user_input)
+                        
+            if graphPart2 is not None and user_input != "":
+                ic(f"should be sending to get_stream users_input: {user_input}")
+
+                for event in graphPart2.graph.stream({"messages": [("user", user_input)]}):
+                    events.append(event)
+                    events_count +=1
+                    ic(events_count)
+                    time.sleep(1)
+                    ic(event)
+
+                
+            
+            appendMessageToSessionMessages(role = "user", message=user_input, session=session)
+            #appendMessageToSessionMessages(role="ai", message=resp, session = session)
+
+            return render_template('quick_start/part2_2.html', user = mock_user, messages=session['messages'])
+
     elif path == "part3":
         return render_template('quick_start/part3.html')
+    elif path == "part3_2":
+        ic("we are in path3_2 now")
+
+
+        
+        if request.method == 'POST':
+            users_input=""
+            ic("we are in post block in part3_2")
+
+            users_input = request.form.get('input_field_graphPart3')
+        
+            
+
+
+
+                        
+            if graphPart3 is not None and users_input != "":
+                ic(f"should be sending to getStream users_input: {users_input}")
+
+                events = graphPart3.getStream(user_input=users_input)
+                
+                for event in events:
+                    ic(event["messages"][-1])
+
+                    last_message = event['messages'][-1]
+                    ic(type(last_message))
+                    time.sleep(3)
+                    last_message = detect_message_type(last_message)
+                    ic(last_message["role"])
+                    ic(last_message["content"])
+
+                    if (last_message["role"] !="" and last_message["content"] !=""):
+                        ic("we have role and content and will update messages in session now")
+                        appendMessageToSessionMessages(role = last_message["role"], message=last_message["content"], session = session)
+
+                    
+                    ic(" - - - - - - - - - - - - - - - ")
+
+               
+
+                return redirect( url_for('quick_start', path = "part3_2"))
+
+             
+        return render_template('quick_start/part3_2.html', user = mock_user, messages = session['messages'])
+
+
+
     elif path == "part4":
         return render_template('quick_start/part4.html')
     elif path == "part5":
@@ -485,6 +586,36 @@ def part4_proceed(data):
 
 
 
+@app.route('/cleanSessionData', methods = ['GET'])
+def cleanSessionData():
+    ic("def cleanSessionData")
+
+    ic(request.method)
+
+    if request.method == 'GET':
+        ic("we are in post")
+        session.clear()
+        ic("after session.clear()")
+
+    return redirect(request.referrer)
+    
+
+
+@app.route('/loading_route', methods=['GET', 'POST'])
+def your_view_function():
+    # Your code here
+    if request.method == 'POST':
+        # Start the loading indicator
+        return render_template('index.html', loading=True)
+    else:
+        # Stop the loading indicator
+        return render_template('index.html', loading=False)
+
+
+
+
+
+
 # region Alejandro's Cohort
 
 # before/outside the route we initilaze stuff that only needs to be done once
@@ -570,9 +701,13 @@ def lesson8():
 # endregion
 
 
+def cleanup():
+    graphPart1 = None
+    graphPart2 = None
+    session['messages'] = []
+    session['user'] =""    
 
-
-
+atexit.register(cleanup)
 
 
 if __name__ == '__main__':

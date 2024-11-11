@@ -16,6 +16,7 @@
 
 
 
+
     </script>
 </head>
 
@@ -27,6 +28,14 @@
     <button id="btnTwo">Time in JS</button>
 
     <ul id="currentTime"></ul>
+
+    <form action="{{ url_for('playground') }}" method="post">
+        <button type="submit">Test Loading</button>
+    </form>
+    
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
 
 
     <div>

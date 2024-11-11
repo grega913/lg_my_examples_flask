@@ -131,6 +131,8 @@ a.sidebar-link {
     background-color: #585454;
     border: 1px solid #ccc;
     color: #fff;
+    font-size: 0.8rem;
+
     /* Make text color bright */
 }
 
@@ -138,8 +140,20 @@ a.sidebar-link {
     background-color: #232f94;
     border: 1px solid #ddd;
     color: #fff;
+    font-size: 0.8rem;
+    padding-left: 30px;
     /* Make text color bright */
 }
+
+.tool-message {
+    background-color: #672394;
+    border: 1px solid #ddd;
+    color: #fff;
+    font-size: 0.8rem;
+    /* Make text color bright */
+}
+
+
 
 
 
@@ -206,7 +220,7 @@ a.sidebar-link {
 
 .message-container li {
     /* Set the padding to 10px and the border-bottom to 1px solid #ccc */
-    padding: 10px;
+    padding: 5px;
     border-bottom: 1px solid #ccc;
 }
 
@@ -245,7 +259,15 @@ a.sidebar-link {
 
 
 
+
+
+
 .accordion-title {
 
     color:black
+}
+
+
+.event {
+    color:#4CAF50
 }

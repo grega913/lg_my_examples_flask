@@ -29,7 +29,6 @@
 
 <!--FORM this is a input field and a inline button/icon-->
 
-
 {% macro form_input_3(action, name, id, placeholder, path="") %}
     <form action="{{ url_for(action, path = path) }}" method="post">
     <div class="input-group">
@@ -154,9 +153,22 @@
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link">Link 2</a>
                     </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">Link 2</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ url_for('/cleanSessionData') }}">" class="sidebar-link">Clean Session Data </a>
+                    </li>
+
+
                 </ul>
             </li>
         </ul>
+
+
+
+
+
     </li>
 </ul>
 {% endmacro %}
@@ -283,6 +295,12 @@
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link">Link 2</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">Link 2</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ url_for('cleanSessionData') }} " class="sidebar-link">Clean Session Data </a>
                     </li>
                 </ul>
             </li>
