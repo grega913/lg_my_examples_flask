@@ -15,6 +15,19 @@ body {
     background-size: cover;
 }
 
+body.loading::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+
+
 h3 {
     font-size: 1.2375rem;
     color: #FFF;
@@ -271,3 +284,37 @@ a.sidebar-link {
 .event {
     color:#4CAF50
 }
+
+
+
+/* loading indicator */
+
+#loadingIndicator {
+    display: none;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border-left-color: rgb(9, 75, 119);
+    animation: spin 1s ease infinite;
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(355deg);
+    }
+}
+
+/* end of loading indicator */

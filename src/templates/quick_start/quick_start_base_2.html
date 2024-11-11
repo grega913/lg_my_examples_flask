@@ -75,11 +75,21 @@
 
     </div>
 
+    <div id="loadingIndicator" class="spinner"></div>
+    <script>
+        document.querySelector('form').addEventListener('submit', function () {
+            document.getElementById('loadingIndicator').style.display = 'block';
+            document.body.classList.add('loading');
+            // The spinner will remain visible until the page is redirected
+        });
+
+    </script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
