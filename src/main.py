@@ -214,16 +214,12 @@ def quick_start(path):
                     ic(event["messages"][-1])
 
                     last_message = event['messages'][-1]
-                    ic(type(last_message))
-                    time.sleep(3)
+
                     last_message = detect_message_type(last_message)
-                    ic(last_message["role"])
-                    ic(last_message["content"])
 
                     if (last_message["role"] !="" and last_message["content"] !=""):
                         ic("we have role and content and will update messages in session now")
                         appendMessageToSessionMessages(role = last_message["role"], message=last_message["content"], session = session)
-
                     
                     ic(" - - - - - - - - - - - - - - - ")
 
