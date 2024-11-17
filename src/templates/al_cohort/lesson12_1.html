@@ -1,0 +1,57 @@
+{% extends 'al_cohort/al_cohort_base.html' %}
+
+{% block title %}Lesson12_1 - Advanced LangGraph Agents {% endblock %}
+
+
+
+{% block titleContentAndLink %}
+{% from "playground/macros.html" import macro_title_and_link %}
+{{ macro_title_and_link(title = "Lesson12_1 - Advanced LangGraph Agents", link =
+"https://app.alejandro-ao.com/lessons/advanced-langgraph-agents/")}}
+{% endblock %}
+
+
+{% block linkToMyColab %} <a
+    href="https://colab.research.google.com/drive/1OF40KJllQAFfvX2hAh2rbW3-nVYq6PqF#scrollTo=gev2lGW8pJWn"
+    target="_blank">MyColab - Lesson12</a> {% endblock %}
+
+
+
+{% block accordion %}
+{% from "playground/macros.html" import macro_accordion %}
+{{ macro_accordion(
+title = "Advanced LangGraph Agents",
+link = "https://app.alejandro-ao.com/lessons/advanced-langgraph-agents/",
+img = "/graphLesson12_1.png",
+body_content = "Lesson 12 from Al Cohort. Introducing Memory into React Agent. We have multiple tools - multiply and sum. We are including all messages into every prompt. Check LangSmith."
+)}}
+
+{% endblock %}
+
+
+{% block inputForm %}
+{% from "playground/macros.html" import form_input_3 %}
+{{ form_input_3(action = "api_lesson12_1", name="lesson12_1", id ="lesson12_1",
+placeholder = "something")}}
+{% endblock %}
+
+
+{% block promptInstructions %}
+<p class="prompt">What is 556 times 85855?</p>
+{% endblock %}
+
+
+{% block messagesDisplayed %}
+<ul>
+
+    {% for message in messages %}
+    <li {% if message.role=='ai' %} class="ai-message" {% elif message.role=='user' %} class="user-message" {% elif
+        message.role=='tool' %} class="tool-message" {% endif %}>
+        {{ message.content}}
+    </li>
+
+    {% endfor %}
+
+
+</ul>
+{% endblock %}

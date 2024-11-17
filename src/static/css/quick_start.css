@@ -166,6 +166,14 @@ a.sidebar-link {
     /* Make text color bright */
 }
 
+.summary-message {
+    background-color: #dbd5f3;
+    border: 1px solid #c43939;
+    color: #0000004b;
+    font-size: 0.7rem;
+    /* Make text color bright */
+}
+
 
 
 
@@ -318,3 +326,23 @@ a.sidebar-link {
 }
 
 /* end of loading indicator */
+
+
+.btnContinue {
+    background-color: #3e8e41;
+}
+
+.err {
+    background-color: red;
+}
+
+.proceed {
+    color:white;
+    background-color: #672394;
+}
+
+.prompt {
+    color:#ccc;
+    background-color: #4CAF50;
+    font-size: smaller;
+}

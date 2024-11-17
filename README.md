@@ -1,5 +1,28 @@
 # LangGraph Tutorials and HowTos with Flask, Bootstrap.
 
+# 20241117 - Al_Cohort - Lesson 12_1 - Agent with Memory
+
+# 20241117 - Al-Cohort - Lesson 12_2 - Agent WithMemory and Summarization
+
+## 20241117 - Al_Cohort - Lesson 11 - Agent with ToolNode - there are 2 versions
+
+1.  Using a single tool - [calculate]
+2.  Using Graph With ReAct Agent with multiple tools [get_templerature, convert_to_fahrenheit]
+
+## 20241114 - Part6_2
+
+## 20241113 - Part5_2 - skipped the part of overwriting existing messages
+
+## 20241113 - Routing modifications
+
+1.  @app.route('/lg_tutorials/quick_start/<path:path>', methods = ['GET'])
+    Changed the route to only accept the GET requests, since was having issues with uncontrollable POST requests being made - quite a reconstruction, but needed.
+2.  POST requests will be made to functions in route "/api, ....."
+3.  For part4 . . it is a version with Human in The Loop - a 2 step process, where user should click on the "Proceed To Tools" button
+
+4.  Starting from part4_2
+5.  For clarity reasons -> total seperation of POST and GET routes
+
 ## 20241111 - Quickstart tutorial created differently
 
 1.  Templates are:

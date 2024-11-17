@@ -1,0 +1,70 @@
+{% extends 'quick_start/quick_start_base_2.html' %}
+
+{% block title %}Part 4: Human-in-the-loop {% endblock %}
+
+
+
+{% block titleContentAndLink %}
+{% from "playground/macros.html" import macro_title_and_link %}
+{{ macro_title_and_link(title = "Part 4: Human-in-the-loop", link =
+"https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-4-human-in-the-loop")}}
+{% endblock %}
+
+
+{% block accordion %}
+{% from "playground/macros.html" import macro_accordion %}
+{{ macro_accordion(
+title = "Part 4: Human-in-the-loop",
+link = "https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-4-human-in-the-loop",
+img = "/graph_part3.jpeg",
+body_content = "Agents can be unreliable and may need human input to successfully accomplish tasks. Similarly, for some actions, you may
+want to require human approval before running to ensure that everything is running as intended.
+LangGraph supports human-in-the-loop workflows in a number of ways. In this section, we will use LangGraph's
+interrupt_before functionality to always break the tool node. Interrupt before stops graph's execution and we need to wait for user's confirmation to continue."
+)}}
+{% endblock %}
+
+
+{% block error %} 
+    {% if err %}
+        <div class= "err"> {{ err }} </div>
+    {% endif %}
+{% endblock %}
+
+
+{% block inputForm %}
+{% from "playground/macros.html" import form_input_3 %}
+{{ form_input_3(action = "api_part4_2", name="input_field_graphPart4", id ="input_field_graphPart4",
+placeholder = "writesomethinghere") }}
+{% endblock %}
+
+
+/*displaying block btnProceed - if the var displayBtnProceed is true, this button should be displayed*/
+{%block btnProceed %}
+    {% if displayBtnProceed %}
+        <p class="proceed">Graph execution has stopped before tools node. Click to btn if you want to proceed with calling a tool.</p>
+        <form action="{{ url_for ('api_part4_2_proceed')}}" method = "post">
+            <input type="hidden" name="cont" value= "True">
+            <button class="green" type="submit">PROCEED TO TOOLS</button>
+        </form>
+    {% endif %}
+{% endblock %}
+
+
+
+
+
+{% block messagesDisplayed %}
+<ul>
+
+    {% for message in messages %}
+    <li {% if message.role=='ai' %} class="ai-message" {% elif message.role=='user' %} class="user-message" {% elif
+        message.role=='tool' %} class="tool-message" {% endif %}>
+        {{ message.content}}
+    </li>
+
+    {% endfor %}
+
+
+</ul>
+{% endblock %}

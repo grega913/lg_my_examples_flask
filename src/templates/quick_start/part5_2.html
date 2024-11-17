@@ -1,0 +1,87 @@
+{% extends 'quick_start/quick_start_base_2.html' %}
+
+{% block title %}Part 5: Manually updating the State {% endblock %}
+
+
+
+{% block titleContentAndLink %}
+{% from "playground/macros.html" import macro_title_and_link %}
+{{ macro_title_and_link(title = "Part 5: Manually Updating the State", link =
+"https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-5-manually-updating-the-state")}}
+{% endblock %}
+
+
+{% block accordion %}
+{% from "playground/macros.html" import macro_accordion %}
+{{ macro_accordion(
+title = "Part 5: Manually Updating the State
+",
+link = "https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-5-manually-updating-the-state",
+img = "/graph_part5.jpeg",
+body_content = "In the previous section, we showed how to interrupt a graph so that a human could inspect its actions. This lets the
+human read the state, but if they want to change their agent's course, they'll need to have write access.
+Thankfully, LangGraph lets you manually update state! Updating the state lets you control the agent's trajectory by
+modifying its actions (even modifying the past!). This capability is particularly useful when you want to correct the
+agent's mistakes, explore alternative paths, or guide the agent towards a specific goal.
+We'll show how to update a checkpointed state below. As before, first, define your graph. We'll reuse the exact same
+graph as before."
+)}}
+{% endblock %}
+
+
+{% block error %}
+{% if err %}
+<div class="err"> {{ err }} </div>
+{% endif %}
+{% endblock %}
+
+
+{% block inputForm %}
+{% from "playground/macros.html" import form_input_3 %}
+{{ form_input_3(action = "api_part5_2", name="input_field_graphPart5", id ="input_field_graphPart5",
+placeholder = "writesomethinghere") }}
+{% endblock %}
+
+
+/*displaying block btnProceed - if the var displayBtnProceed is true, this button should be displayed*/
+
+{%block btnProceed %}
+    {% if displayBtnProceed %}
+    <div class = "proceed">
+        <p>Graph execution has stopped before tools node.</p>
+        <p>1. Click Proceed To Tools if you want to proceed with calling a tool.</p>
+        <p>2. If you think that the bot does not need to use a tool, write an answer anc click submit response.
+            You can add user's message as a Tool Message or as an AI message
+        </p>
+        <p>I skipped the part for overwriting existing messages - it is in tutorial</p>
+    </div>
+
+        <form action="{{ url_for ('api_part5_2_proceed')}}" method="POST">
+            <input type="hidden" name="step" value="2">
+            <button class="green" type="submit">PROCEED TO TOOLS</button>
+            <div>
+                <input type="text" name="answer" placeholder="Enter your response">
+                <button type="submit" name="action" value="submit_response">Submit Response</button>
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}
+
+
+
+
+
+{% block messagesDisplayed %}
+<ul>
+
+    {% for message in messages %}
+    <li {% if message.role=='ai' %} class="ai-message" {% elif message.role=='user' %} class="user-message" {% elif
+        message.role=='tool' %} class="tool-message" {% endif %}>
+        {{ message.content}}
+    </li>
+
+    {% endfor %}
+
+
+</ul>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'quick_start/quick_start_base_2.html' %}
+
+{% block title %}Part 6: Customizing State {% endblock %}
+
+
+
+{% block titleContentAndLink %}
+{% from "playground/macros.html" import macro_title_and_link %}
+{{ macro_title_and_link(title = "Part 6: Customizing State", link =
+"https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-6-customizing-state")}}
+{% endblock %}
+
+
+{% block accordion %}
+{% from "playground/macros.html" import macro_accordion %}
+{{ macro_accordion(
+title = "Part 6: Customizing State
+",
+link = "https://langchain-ai.github.io/langgraph/tutorials/introduction/#part-6-customizing-state",
+img = "/graph_part6.jpeg",
+body_content = "So far, we've relied on a simple state (it's just a list of messages!). You can go far with this simple state, but if
+you want to define complex behavior without relying on the message list, you can add additional fields to the state. In
+this section, we will extend our chat bot with a new node to illustrate this.
+
+In the examples above, we involved a human deterministically: the graph always interrupted whenever an tool was invoked.
+Suppose we wanted our chat bot to have the choice of relying on a human.
+
+One way to do this is to create a passthrough 'human' node, before which the graph will always stop. We will only
+execute this node if the LLM invokes a 'human' tool. For our convenience, we will include an 'ask_human' flag in our
+graph state that we will flip if the LLM calls this tool."
+)}}
+{% endblock %}
+
+
+{% block error %}
+{% if err %}
+<div class="err"> {{ err }} </div>
+{% endif %}
+{% endblock %}
+
+
+{% block inputForm %}
+<div class="proceed"> example: I need some expert guidance for building this AI agent. Could you request assistance for me?</div>
+{% from "playground/macros.html" import form_input_3 %}
+{{ form_input_3(action = "api_part6_2", name="input_field_graphPart6", id ="input_field_graphPart6",
+placeholder = "writesomethinghere") }}
+
+{% endblock %}
+
+
+/*displaying block btnProceed - if the var displayBtnProceed is true, this button should be displayed*/
+<!--
+{%block btnProceed %}
+{% if displayBtnProceed %}
+<div class="proceed">
+    <p>Graph execution has stopped before tools node.</p>
+    <p>1. Click Proceed To Tools if you want to proceed with calling a tool.</p>
+    <p>2. If you think that the bot does not need to use a tool, write an answer anc click submit response.
+        You can add user's message as a Tool Message or as an AI message
+    </p>
+    <p>I skipped the part for overwriting existing messages - it is in tutorial</p>
+</div>
+
+<form action="{{ url_for ('api_part5_2_proceed')}}" method="POST">
+    <input type="hidden" name="step" value="2">
+    <button class="green" type="submit">PROCEED TO TOOLS</button>
+    <div>
+        <input type="text" name="answer" placeholder="Enter your response">
+        <button type="submit" name="action" value="submit_response">Submit Response</button>
+    </div>
+</form>
+{% endif %}
+{% endblock %}
+-->
+
+
+
+
+
+{% block messagesDisplayed %}
+<ul>
+
+    {% for message in messages %}
+    <li {% if message.role=='ai' %} class="ai-message" {% elif message.role=='user' %} class="user-message" {% elif
+        message.role=='tool' %} class="tool-message" {% endif %}>
+        {{ message.content}}
+    </li>
+
+    {% endfor %}
+
+
+</ul>
+{% endblock %}

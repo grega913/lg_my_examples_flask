@@ -1,0 +1,53 @@
+{% extends 'al_cohort/al_cohort_base.html' %}
+
+{% block title %}Lesson11 {% endblock %}
+
+
+
+{% block titleContentAndLink %}
+{% from "playground/macros.html" import macro_title_and_link %}
+{{ macro_title_and_link(title = "Lesson 11 - langGraph Agents", link =
+"https://app.alejandro-ao.com/lessons/langgraph-agents/")}}
+{% endblock %}
+
+
+{% block accordion %}
+{% from "playground/macros.html" import macro_accordion %}
+{{ macro_accordion(
+title = "LangGraph Agents",
+link = "https://app.alejandro-ao.com/lessons/langgraph-agents/",
+img = "/graphLesson11_1.png",
+img2 = "/graphLesson11_4.jpeg",
+body_content = "Lesson 11 from Al Cohort. How LangGraph Agents are build. Here we have a graph with Tool Node. If the LLM thinks it can use tools, it will use tools. IN our case we have a single function multipy in tools.
+Based on the description of the function, the model reasons that for that particular case it would be better to execute the function, so in first stage the model returns a tool call. 
+In our case if we ask the model: What is 5*8, the model will reason that it needs to use a tool (multiply function), and with the help of ToolNode it will call and execute the function.
+If the regular prompt is send, the content will be returned."
+)}}
+
+{% endblock %}
+
+
+{% block inputForm %}
+{% from "playground/macros.html" import form_input_3 %}
+{{ form_input_3(action = "api_lesson11", name="lesson11", id ="lesson11",
+placeholder = "something")}}
+{% endblock %}
+
+
+{% block messagesDisplayed %}
+<ul>
+
+    {% for message in messages %}
+    <li 
+        {% if message.role=='ai' %} class="ai-message"
+        {% elif message.role=='user' %} class="user-message"
+        {% elif message.role=='tool' %} class="tool-message"
+        {% endif %}>
+            {{ message.content}}
+    </li>
+
+    {% endfor %}
+
+
+</ul>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'al_cohort/al_cohort_base.html' %}
+
+{% block title %}Lesson12_2 - Summarizing Memory Agen {% endblock %}
+
+
+
+{% block titleContentAndLink %}
+{% from "playground/macros.html" import macro_title_and_link %}
+{{ macro_title_and_link(title = "Lesson12_2 - Summarizing Memory Agent", link =
+"https://app.alejandro-ao.com/lessons/advanced-langgraph-agents/")}}
+{% endblock %}
+
+
+{% block linkToMyColab %} <a
+    href="https://colab.research.google.com/drive/1OF40KJllQAFfvX2hAh2rbW3-nVYq6PqF#scrollTo=5xtNhitHZ3Mm"
+    target="_blank">MyColab - Lesson12</a> {% endblock %}
+
+
+
+{% block accordion %}
+{% from "playground/macros.html" import macro_accordion %}
+{{ macro_accordion(
+title = "Summarizing Memory Agent",
+link = "https://app.alejandro-ao.com/topics/summarizing-memory-agent/",
+img = "/graphLesson12_1.png",
+img2 = "/graphLesson12_2.png",
+body_content = "Lesson 12 - part 2from Al Cohort. Introducing Summary for not including all previos messages."
+)}}
+
+{% endblock %}
+
+
+{% block inputForm %}
+{% from "playground/macros.html" import form_input_3 %}
+{{ form_input_3(action = "api_lesson12_2", name="lesson12_2", id ="lesson12_2",
+placeholder = "something")}}
+{% endblock %}
+
+
+{% block promptInstructions %}
+<p class="prompt">P1: HI, my name is Ivan, but people call me Sandi?</p>
+<p class="prompt">P2: HI, do you know my name?</p>
+<p class="prompt">P3: I am from Sweden?</p>
+<div>You should be able to see messages and summary as well. Should check session vars bettrer.</div>
+{% endblock %}
+
+
+{% block messagesDisplayed %}
+<ul>
+
+    {% for message in messages %}
+    <li 
+        {% if message.role=='ai' %} class="ai-message"
+        {% elif message.role=='user' %} class="user-message"
+        {% elif message.role=='tool' %} class="tool-message" 
+        {% elif message.role=='summary' %} class="summary-message" 
+        
+        {% endif %}>
+        {{ message.content}}
+    </li>
+
+    {% endfor %}
+
+
+</ul>
+{% endblock %}

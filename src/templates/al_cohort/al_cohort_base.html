@@ -22,6 +22,9 @@
 
 <body>
     <div class="wrapper">
+        
+
+
         <!-- Sidebar -->
         <aside id="sidebar">
             <div class="h-100">
@@ -35,6 +38,11 @@
         <div class="main">
 
             {% block error %}{% endblock %}
+              
+            {% block linkToMyColab %}Link to Colab here{% endblock %}
+           
+
+            
 
             <nav class="navbar navbar-expand px-3 border-bottom">
                 <!-- Button for sidebar toggle -->
@@ -46,14 +54,15 @@
 
             <!--Accordion for description-->
             {% block accordion %}{% endblock %}
-            
+
             <!--{% block btnContinue %}<div class="btnContinue">Tukaj bi moral biti gumb</div> {% endblock %}-->
 
             <!-- block for displaying btnProceed-->
             {% block btnProceed %} {% endblock %}
 
 
-
+            <!-- block for instructions what to ask-->
+            {% block promptInstructions %} {% endblock %}
 
             <main class="content px-3 py-2">
                 <div class="container-fluid">
@@ -62,21 +71,21 @@
                         <div>
                             {% block messagesDisplayed %} {% endblock %}
                         </div>
-                       
-            
+
+
                         <div>
                             <!-- inputForm here . . defined in macros, as we should be calling different params -->
-                           {% block inputForm %}{% endblock %}
+                            {% block inputForm %}{% endblock %}
 
                         </div>
 
 
- 
 
 
 
 
-            
+
+
                     </div>
                 </div>
             </main>
@@ -96,9 +105,8 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous">
-    </script>
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+        </script>
 </body>
 
 </html>

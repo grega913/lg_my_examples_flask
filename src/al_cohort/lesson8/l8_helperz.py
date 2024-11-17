@@ -189,7 +189,7 @@ def init_vector_store_2(pdf_path, persistent_path=""):
 
 
 def appendMessageToSessionMessages(role, message, session):
-    ic(f"def appendMessageToSessionMesages: ${role}, ${message}")
+    # ic(f"def appendMessageToSessionMesages: ${role}, ${message}")
 
     messages = session["messages"]
     messages.append({"role": role, "content": message})
@@ -198,6 +198,11 @@ def appendMessageToSessionMessages(role, message, session):
 
     return messages
 
+def appendSummaryToSessionMessages(summary, session):
+    messages = session["messages"]
+    messages.append({"role": "summary", "content":"Summary of previous messages: " + summary})
+    session['messages'] = messages
+    return messages
 
 class OnboardingAssistant:
     def __init__(
