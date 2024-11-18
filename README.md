@@ -1,10 +1,10 @@
 # LangGraph Tutorials and HowTos with Flask, Bootstrap.
 
-# 20241118 - Academy folder added. Here will be examples form [LangChain Academy](https://academy.langchain.com/).
+## 20241118 - Academy folder added. Here will be examples form [LangChain Academy](https://academy.langchain.com/).
 
-# 20241117 - Al_Cohort - Lesson 12_1 - Agent with Memory
+## 20241117 - Al_Cohort - Lesson 12_1 - Agent with Memory
 
-# 20241117 - Al-Cohort - Lesson 12_2 - Agent WithMemory and Summarization
+## 20241117 - Al-Cohort - Lesson 12_2 - Agent WithMemory and Summarization
 
 ## 20241117 - Al_Cohort - Lesson 11 - Agent with ToolNode - there are 2 versions
 
