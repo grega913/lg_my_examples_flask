@@ -90,17 +90,11 @@ class AcGraphM1L6():
 if __name__=="__main__":
     ic("name=main in l6_Agent")
 
-
-
     agent = AcGraphM1L6()
     agent.compile_graph()
-    
     messages = [HumanMessage(content="Add 30 and 40. Multiply the output by 5. Divide the output by 4")]
     ic(messages)
-
     response = agent.invokeGraph(message=messages)
-
     ic(response)
-
     for m in response['messages']:
         m.pretty_print()

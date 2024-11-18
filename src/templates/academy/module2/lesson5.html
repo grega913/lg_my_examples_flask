@@ -1,0 +1,74 @@
+{% extends 'academy/academy_base.html' %}
+
+{% block title %}Academy-M2L5{% endblock %}
+
+
+
+{% block errMessage %}
+    {% if error %}
+    <p class="err">Error: {{ error }}</p>
+    {% else %}
+    <p>No error</p>
+    {% endif %}
+{% endblock %}
+
+
+{% block titleContentAndLink %}
+{% from "playground/macros.html" import macro_title_and_link %}
+{{ macro_title_and_link(title = "Lesson 5: Chatbot w/ Summarizing Messages and Memory", link =
+"https://academy.langchain.com/courses/take/intro-to-langgraph/lessons/58239436-lesson-5-chatbot-w-summarizing-messages-and-memory")}}
+{% endblock %}
+
+
+{% block linkToMyColab %} <a
+    href="https://colab.research.google.com/drive/1QqOqd7M10FcWSQ0IzXcbBV-001y5TMI5#scrollTo=24b34f0f-62ef-4008-8e96-480cbe92ea3e"
+    target="_blank">MyColab</a>
+ {% endblock %}
+
+
+
+{% block accordion %}
+    {% from "playground/macros.html" import macro_accordion %}
+    {{ macro_accordion(
+        title = "Chatbot with message summarization",
+        link = "https://academy.langchain.com/courses/take/intro-to-langgraph/lessons/58239436-lesson-5-chatbot-w-summarizing-messages-and-memory",
+        img = "/ac_m2_l5_Agent.png",
+        body_content = "Module2 - Lesson 5 Chatbot qwith message summarization.
+        We want to avoid too large prompts, so we make a summary of a conversation and delete older messages.We only keep last 2 messages. And keep updating summary.
+        This is the same graph as in Al_Cohort_Lesson12_2."
+    )}}
+
+{% endblock %}
+
+
+{% block inputForm %}
+{% from "playground/macros.html" import form_input_3 %}
+{{ form_input_3(action = "api_academy_m2_l5", name="academy_m2_l5", id ="academy_m2_l5",
+placeholder = "something")}}
+{% endblock %}
+
+
+{% block promptInstructions %}
+<p class="prompt">Hi, I am Miro.</p>
+<p class="prompt">Do you remember my name?</p>
+<p class="prompt"I love LA Lakers</p>
+<p class="prompt">I also love Bon Jovi?</p>
+<p class="sol">We have a summarize conversation,which decides if it should create a new summary or not.</p>
+{% endblock %}
+
+
+{% block messagesDisplayed %}
+<ul>
+
+    {% for message in messages %}
+    <li {% if message.role=='ai' %} class="ai-message" {% elif message.role=='user' %} class="user-message" {% elif
+        message.role=='tool' %} class="tool-message" {% elif message.role=='summary' %} class="summary-message" {% endif
+        %}>
+        {{ message.content}}
+    </li>
+
+    {% endfor %}
+
+
+</ul>
+{% endblock %}

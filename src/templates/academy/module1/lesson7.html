@@ -1,14 +1,15 @@
-{% extends 'al_cohort/al_cohort_base.html' %}
+{% extends 'academy/academy_base.html' %}
 
 {% block title %}Lesson11_mt {% endblock %}
 
 
-{% block errorMessage %}
-    {% if error %}
-    <p>Error: {{ error }}</p>
-    {% else %}
-    <p>No error</p>
-    {% endif %}
+
+{% block errMessage %}
+{% if error %}
+<p class="err">Error: {{ error }}</p>
+{% else %}
+<p>No error</p>
+{% endif %}
 {% endblock %}
 
 
@@ -22,20 +23,20 @@
 {% block linkToMyColab %} <a
     href="https://colab.research.google.com/drive/1j8_1gWUqB8RD6sQdL6lRhhl9Dn0aT_Fd#scrollTo=ff8fc3bf-3999-47cb-af34-06b2b94d7192"
     target="_blank">MyColab</a>
- {% endblock %}
+{% endblock %}
 
 
 
 {% block accordion %}
-    {% from "playground/macros.html" import macro_accordion %}
-    {{ macro_accordion(
-        title = "Agent with Memory LangGraph with Multiple tools",
-        link = "https://academy.langchain.com/courses/take/intro-to-langgraph/lessons/58239417-lesson-7-agent-with-memory",
-        img = "/ac_l6_Agent.png",
-        body_content = "Module1 - Lesson 6 We are building an Agent that has access tu
-        multiple tools. 3 functions. The graph is different now as tools are going back to llm node. Graph has a memory now.
-        If we want to see memory, we chould add config with threadId to invoke/stream.Check LangSmith for detailed trace."
-    )}}
+{% from "playground/macros.html" import macro_accordion %}
+{{ macro_accordion(
+title = "Agent with Memory LangGraph with Multiple tools",
+link = "https://academy.langchain.com/courses/take/intro-to-langgraph/lessons/58239417-lesson-7-agent-with-memory",
+img = "/ac_l6_Agent.png",
+body_content = "Module1 - Lesson 6 We are building an Agent that has access tu
+multiple tools. 3 functions. The graph is different now as tools are going back to llm node. Graph has a memory now.
+If we want to see memory, we chould add config with threadId to invoke/stream.Check LangSmith for detailed trace."
+)}}
 
 {% endblock %}
 

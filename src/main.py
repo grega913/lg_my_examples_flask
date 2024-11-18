@@ -31,6 +31,7 @@ from al_cohort.lesson12.l12 import GraphLesson12_1, GraphLesson12_2
 
 from academy.module1.lesson6 import AcGraphM1L6
 from academy.module1.lesson7 import AcGraphM1L7
+from academy.module2.lesson5 import AcGraphM2L5
 
 from langchain_groq import ChatGroq
 
@@ -77,9 +78,7 @@ graphLesson12_1 = None
 graphLesson12_2 = None
 acGraphM1L6 = None
 acGraphM1L7 = None
-
-
-
+acGraphM2L5 = None
 
 
 # graph_part4 = part4_compile_graph()
@@ -227,6 +226,16 @@ def before_request():
             random_string = generate_random_string(5)
             acGraphM1L7 = AcGraphM1L7(threadId=random_string)
             acGraphM1L7.compile_graph()
+            if 'messages' not in session:
+                session['messages'] = []
+            if 'messages' in session:
+                session['messages']= []
+    if request.path == '/academy/module2/lesson5':
+        global acGraphM2L5
+        if acGraphM2L5 is None:
+            random_string = generate_random_string(5)
+            acGraphM2L5 = AcGraphM2L5(threadId=random_string)
+            acGraphM2L5.compile_graph()
             if 'messages' not in session:
                 session['messages'] = []
             if 'messages' in session:
@@ -941,7 +950,6 @@ def api_part5_3():
 
 # endregion
 
-
 # region bootstrap
 @app.route("/bootstrap/bootstrap")
 def bootstrap():
@@ -1065,7 +1073,6 @@ def part4_proceed(data):
 
 # endregion
 
-
 # region extras
 
 
@@ -1097,7 +1104,6 @@ def your_view_function():
 
 
 # endregion
-
 
 # region Alejandro's Cohort
 
@@ -1365,7 +1371,6 @@ def api_lesson12_2():
 
 # endregion
 
-
 # region Academy
 
 @app.route("/academy/module1/lesson6", methods= ['GET'])
@@ -1443,12 +1448,15 @@ def api_academy_m1_l7():
             users_input = request.form.get('academy_m1_l7')
             ic(users_input)
 
+            
+
             if not users_input:
                 raise ValueError("Input field is empty")
             
             if not acGraphM1L7:
                 raise ValueError("acGraphM1L7 is not defined in /api/academy_m1_l7/")
-               
+     
+             
             response = acGraphM1L7.invokeGraph(message = users_input)
 
             ic(response)
@@ -1463,11 +1471,6 @@ def api_academy_m1_l7():
 
             ic("before redirect")
 
-
-
-                       
-
-
             return redirect(url_for('academy_m1_l7', messages = session['messages']))
         
         except Exception as e:
@@ -1475,15 +1478,75 @@ def api_academy_m1_l7():
         finally:
             ic("finally in post route academy_m1_l7")
 
-# enregion
-
- 
 
 
+
+
+
+
+
+
+@app.route("/academy/module2/lesson5", methods= ['GET'])
+def academy_m2_l5():
+    ic("route academy/module2/lesson5")
+    
+
+    error = request.args.get('error')
+    if error is not None:
+        ic(error)
+
+
+    if not "messages" in session:
+        session["messages"] = []
+
+    return render_template('academy/module2/lesson5.html', messages = session['messages'], error = error)
+
+
+@app.route('/api/academy_m2_l5', methods= ['POST'])
+def api_academy_m2_l5():
+        ic("def api_academy_m2_l5")
+        try:
+            users_input = request.form.get('academy_m2_l5')
+            ic(users_input)
+            
+            if not users_input:
+                raise ValueError("Input field is empty")
+            
+            if not acGraphM2L5:
+                raise ValueError("acGraphM2L5 is not defined in /api/academy_m2_l5/")
+             
+            response = acGraphM2L5.invokeGraph(message = users_input)
+            ic(response)
+           
+            messages = acGraphM2L5.getMessages()
+            ic(messages)
+            for m in messages:
+                message = detect_message_type(m)
+                appendMessageToSessionMessages(role=message["role"], message=message["content"], session=session)
+
+            # check if we have summary
+            summary = acGraphM2L5.getSummary()
+            ic(summary)
+            if summary is not None:
+                appendSummaryToSessionMessages(summary = summary, session = session)
+
+           
+
+            return redirect(url_for('academy_m2_l5', messages = session['messages']))
+        
+        except Exception as e:
+            return redirect(url_for('academy_m2_l5', error=e))
+        finally:
+            ic("finally in post route academy_m2_l5")
+
+
+
+
+
+
+
+# endregion
 
 
 if __name__ == '__main__':
-
-
-
     socketio.run(app, debug=False, use_reloader=True, port=5005)
