@@ -15,6 +15,8 @@ body {
     background-size: cover;
 }
 
+
+
 body.loading::before {
     content: '';
     position: fixed;
@@ -25,6 +27,9 @@ body.loading::before {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
+
+
+
 
 
 
@@ -343,6 +348,12 @@ a.sidebar-link {
 
 .prompt {
     color:#ccc;
-    background-color: #4CAF50;
+    background-color: #1e201e;
     font-size: smaller;
+}
+
+.sol {
+        color: #ccc;
+        background-color: #526b53;
+        font-size: smaller;
 }

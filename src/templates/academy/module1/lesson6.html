@@ -1,0 +1,63 @@
+{% extends 'al_cohort/al_cohort_base.html' %}
+
+{% block title %}Lesson11_mt {% endblock %}
+
+{% if err %}
+    {% block error %}{{ err }} {% endblock %}
+{% endif %}
+
+{% block titleContentAndLink %}
+{% from "playground/macros.html" import macro_title_and_link %}
+{{ macro_title_and_link(title = "Lesson 16 - Simple Agent", link =
+"https://app.alejandro-ao.com/lessons/langgraph-agents/")}}
+{% endblock %}
+
+
+{% block linkToMyColab %} <a
+    href="https://colab.research.google.com/drive/1edfeQ7pjoUnfZns0AEgPrjRy_AUQcF-p#scrollTo=aef13cd4-05a6-4084-a620-2e7b91d9a72f"
+    target="_blank">MyColab</a> {% endblock %}
+
+
+
+{% block accordion %}
+{% from "playground/macros.html" import macro_accordion %}
+{{ macro_accordion(
+title = "SimpleAgent in LangGraph with Multiple tools",
+link = "https://academy.langchain.com/courses/take/intro-to-langgraph/lessons/58239232-lesson-6-agent",
+img = "/ac_l6_Agent.png",
+body_content = "Module1 - Lesson 6 We are building an Agent that has access tu
+multiple tools. 3 functions. The graph is different now as tools are going back to llm node.
+There should be multiple(2) Tool Messages.
+Check LangSmith for detailed trace."
+)}}
+
+{% endblock %}
+
+
+{% block inputForm %}
+{% from "playground/macros.html" import form_input_3 %}
+{{ form_input_3(action = "api_academy_m1_l6", name="academy_m1_l6", id ="academy_m1_l6",
+placeholder = "something")}}
+{% endblock %}
+
+
+{% block promptInstructions %}
+<p class="prompt">Add 30 and 40. Multiply the output by 7. Divide the output by 4?</p>
+<p class="sol">This sshould produce a Human Message, multiple Tool Messages and a AI Message</p>
+{% endblock %}
+
+
+{% block messagesDisplayed %}
+<ul>
+
+    {% for message in messages %}
+    <li {% if message.role=='ai' %} class="ai-message" {% elif message.role=='user' %} class="user-message" {% elif
+        message.role=='tool' %} class="tool-message" {% endif %}>
+        {{ message.content}}
+    </li>
+
+    {% endfor %}
+
+
+</ul>
+{% endblock %}

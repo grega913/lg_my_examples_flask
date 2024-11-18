@@ -29,6 +29,9 @@ from al_cohort.lesson8.l8_prompts import SYSTEM_PROMPT,WELCOME_MESSAGE
 from al_cohort.lesson11.l11 import GraphLesson11, GraphLesson11_MultipleTools
 from al_cohort.lesson12.l12 import GraphLesson12_1, GraphLesson12_2
 
+from academy.module1.lesson6 import AcGraphM1L6
+from academy.module1.lesson7 import AcGraphM1L7
+
 from langchain_groq import ChatGroq
 
 llm = ChatGroq(model="llama-3.1-8b-instant")
@@ -72,6 +75,8 @@ graphLesson11_withToolNode = None
 graphLesson11_multiple_tools = None
 graphLesson12_1 = None
 graphLesson12_2 = None
+acGraphM1L6 = None
+acGraphM1L7 = None
 
 
 
@@ -204,6 +209,26 @@ def before_request():
             if 'messages' not in session:
                 session['messages'] = []
     
+            if 'messages' in session:
+                session['messages']= []
+    if request.path == '/academy/module1/lesson6':
+        global acGraphM1L6
+        if acGraphM1L6 is None:
+            random_string = generate_random_string(5)
+            acGraphM1L6 = AcGraphM1L6(threadId=random_string)
+            acGraphM1L6.compile_graph()
+            if 'messages' not in session:
+                session['messages'] = []
+            if 'messages' in session:
+                session['messages']= []
+    if request.path == '/academy/module1/lesson7':
+        global acGraphM1L7
+        if acGraphM1L7 is None:
+            random_string = generate_random_string(5)
+            acGraphM1L7 = AcGraphM1L7(threadId=random_string)
+            acGraphM1L7.compile_graph()
+            if 'messages' not in session:
+                session['messages'] = []
             if 'messages' in session:
                 session['messages']= []
 
@@ -1340,6 +1365,117 @@ def api_lesson12_2():
 
 # endregion
 
+
+# region Academy
+
+@app.route("/academy/module1/lesson6", methods= ['GET'])
+def academy_m1_l6():
+    ic("route academy/module1/lesson6")
+    
+
+    if not "messages" in session:
+        session["messages"] = []
+    return render_template('academy/module1/lesson6.html', messages = session['messages'], err=None)
+
+
+@app.route('/api/academy_m1_l6', methods= ['POST'])
+def api_academy_m1_l6():
+        ic("def api_academy_m1_l6")
+        try:
+            users_input = request.form.get('academy_m1_l6')
+            ic(users_input)
+
+            if not users_input:
+                raise ValueError("Input field is empty")
+            
+            if not acGraphM1L6:
+                raise ValueError("acGraphM1L6 is not defined in /api/academy_m1_l6/")
+               
+            response = acGraphM1L6.invokeGraph(message = users_input)
+
+            ic(response)
+
+            messages = response["messages"]
+            if "messages" in session:
+                session['messages'] = []
+
+            for m in messages:
+                message = detect_message_type(m)
+                appendMessageToSessionMessages(role=message["role"], message=message["content"], session=session)
+
+            ic("before redirect")
+            time.sleep(4)
+
+
+                       
+
+
+            return redirect(url_for('academy_m1_l6', messages = session['messages']))
+        
+        except Exception as e:
+            return redirect(url_for('academy_m1_l6', err=e))
+        finally:
+            ic("finally in post route academy_m1_l6")
+
+
+
+
+@app.route("/academy/module1/lesson7", methods= ['GET'])
+def academy_m1_l7():
+    ic("route academy/module1/lesson7")
+    
+
+    error = request.args.get('error')
+    if error is not None:
+        ic(error)
+
+
+    if not "messages" in session:
+        session["messages"] = []
+
+    return render_template('academy/module1/lesson7.html', messages = session['messages'], error = error)
+
+
+@app.route('/api/academy_m1_l7', methods= ['POST'])
+def api_academy_m1_l7():
+        ic("def api_academy_m1_l7")
+        try:
+            users_input = request.form.get('academy_m1_l7')
+            ic(users_input)
+
+            if not users_input:
+                raise ValueError("Input field is empty")
+            
+            if not acGraphM1L7:
+                raise ValueError("acGraphM1L7 is not defined in /api/academy_m1_l7/")
+               
+            response = acGraphM1L7.invokeGraph(message = users_input)
+
+            ic(response)
+
+            messages = response["messages"]
+            if "messages" in session:
+                session['messages'] = []
+
+            for m in messages:
+                message = detect_message_type(m)
+                appendMessageToSessionMessages(role=message["role"], message=message["content"], session=session)
+
+            ic("before redirect")
+
+
+
+                       
+
+
+            return redirect(url_for('academy_m1_l7', messages = session['messages']))
+        
+        except Exception as e:
+            return redirect(url_for('academy_m1_l7', error=e))
+        finally:
+            ic("finally in post route academy_m1_l7")
+
+# enregion
 
  
 
